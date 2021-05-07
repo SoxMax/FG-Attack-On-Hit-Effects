@@ -7,7 +7,7 @@
 
 <root>
 	<windowclass name="char_weapon_editor_main" merge="join">
-		<sheetdata>
+		<!-- <sheetdata>
 			<header_column name="header_effects">
 				<insertbefore>header_damage</insertbefore>
 				<static textres="weapon_header_effects" />
@@ -37,10 +37,23 @@
 					end
 				</script>
 			</list_editor>
-		</sheetdata>
+		</sheetdata> -->
+		<sheetdata>
+			<subwindow name="advanced_effects_contents" insertbefore="header_damage">
+				<anchored>
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="0" />
+					<left offset="5" />
+                    <right offset="5" />
+				</anchored>
+				<class>advanced_effects_subwindow</class>
+				<activate />
+				<fastinit />
+                <invisible />
+			</subwindow>
+        </sheetdata>
 	</windowclass>
 
-	<windowclass name="char_weapon_effect_entry">
+	<!-- <windowclass name="char_weapon_effect_entry">
 		<margins control="0,0,0,2" />
 		<sheetdata>
 			<genericcontrol name="rightanchor">
@@ -68,6 +81,6 @@
 				<multilinespacing>20</multilinespacing>
 			</stringu>
 		</sheetdata>
-	</windowclass>
+	</windowclass> -->
 
 </root>

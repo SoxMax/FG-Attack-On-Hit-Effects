@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the license.html file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<template name="list_editor_advanced_effects">
+		<windowlist name="list">
+			<anchored>
+				<top parent="columnanchor" anchor="bottom" relation="relative" offset="0" />
+				<left />
+				<right />
+			</anchored>
+			<allowdelete />
+			<child></child>
+			<child><backcolor>1A40301E</backcolor></child>
+			<script>
+				function onInit()
+					registerMenuItem(Interface.getString("list_menu_createitem"), "insert", 5);
+				end
+				
+				function onMenuSelection(selection)
+					if selection == 5 then
+						self.addEntry(true);
+					end
+				end
+				
+				function onListChanged()
+					update();
+				end
+
+				function update()
+					local bEdit = (window.effects_iedit.getValue() == 1);
+					for _,w in ipairs(getWindows()) do
+						w.idelete.setVisibility(bEdit);
+					end
+				end
+				
+				function addEntry(bFocus)
+					update();
+					return createWindow();
+				end
+			</script>
+		</windowlist>
+	</template>
+
+	<template name="cycler_abilitytypes">
+		<button_stringcycler>
+			<parameters>
+                <defaultlabelres mergerule="replace">modifier</defaultlabelres>
+				<labelsres>check</labelsres>
+                <values>check</values>
+			</parameters>
+		</button_stringcycler>
+	</template>
+
+	<template name="cycler_ability_short">
+		<button_stringcycler>
+			<parameters>
+				<defaultlabelres mergerule="replace">strength</defaultlabelres>
+				<labelsres>dexterity|constitution|intelligence|wisdom|charisma</labelsres>
+				<values>dex|con|int|wis|cha</values>
+			</parameters>
+		</button_stringcycler>
+	</template>
+
+	<template name="cycler_ability_long">
+		<button_stringcycler>
+			<parameters>
+				<defaultlabelres mergerule="replace">strength</defaultlabelres>
+				<labelsres>dexterity|constitution|intelligence|wisdom|charisma</labelsres>
+				<values>dexterity|constitution|intelligence|wisdom|charisma</values>
+			</parameters>
+		</button_stringcycler>
+	</template>
+
+	<template name="combobox_bonus_types">
+			<combobox>
+				<listdirection>down</listdirection>
+				<script>
+					function onInit()
+						super.onInit();
+						addItems(DataCommon.bonustypes);
+						add("none");
+					end
+				</script>
+			<listmaxsize>3</listmaxsize>
+			</combobox>
+	</template>
+	
+	<template name="cycler_effecttypes">
+		<button_stringcycler>
+			<parameters>
+				<defaultlabelres mergerule="replace">dash</defaultlabelres>
+				<labelsres>save|ability|susceptiblity|misc|label</labelsres>
+                <values>save|ability|susceptiblity|misc|label</values>
+			</parameters>
+		</button_stringcycler>
+	</template>
+
+	<template name="cycler_savetypes">
+		<button_stringcycler>
+			<parameters>
+                <defaultlabelres mergerule="replace">modifier</defaultlabelres>
+				<labelsres>modifier</labelsres>
+                <values>modifier</values>
+			</parameters>
+		</button_stringcycler>
+	</template>
+
+	<template name="cycler_saves">
+		<button_stringcycler>
+			<parameters>
+				<defaultlabelres mergerule="replace">fortitude</defaultlabelres>
+				<labelsres>reflex|will</labelsres>
+				<values>reflex|will</values>
+			</parameters>
+		</button_stringcycler>
+	</template>
+
+	<template name="cycler_susceptiblitytypes">
+		<button_stringcycler>
+			<parameters>
+				<defaultlabelres mergerule="replace">immune</defaultlabelres>
+				<labelsres>resist|vuln</labelsres>
+                <values>resist|vuln</values>
+			</parameters>
+		</button_stringcycler>
+	</template>
+
+	<template name="combobox_damage_types">
+			<combobox>
+				<listdirection>down</listdirection>
+				<script>
+					function onInit()
+						super.onInit();
+						addItems(DataCommon.dmgtypes);
+					end
+				</script>
+				<listmaxsize>3</listmaxsize>
+			</combobox>
+	</template>
+
+	<template name="cycler_misctypes">
+		<button_stringcycler>
+			<parameters>
+				<defaultlabelres mergerule="replace">ac</defaultlabelres>
+				<labelsres>atk|dmg|heal|init_ae</labelsres>
+                <values>atk|dmg|heal|init</values>
+			</parameters>
+		</button_stringcycler>
+	</template>
+	
+    <template name="advanced_effect_number">
+        <basicnumber>
+            <default>0</default>
+            <hideonvalue>0</hideonvalue>
+            <gmeditonly />
+        </basicnumber>
+    </template>
+
+</root>
