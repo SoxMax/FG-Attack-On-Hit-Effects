@@ -7,23 +7,44 @@ local aEffectVarMap = {
 	["nInit"] = { sDBType = "number", sDBField = "init", sSourceChangeSet = "initresult", bClearOnUntargetedDrop = true },
 };
 
+function checkPlayerVisibility(sVisibility, nIdentified)
+    local gmOnly = 0
+    if sVisibility == "hide" then
+        gmOnly = 1
+    elseif sVisibility == "show" then
+        gmOnly = 0
+    elseif nIdentified then
+        if nIdentified == 0 then
+            gmOnly = 1
+        elseif nIdentified > 0  then
+            gmOnly = 0
+        end
+    end
+    return gmOnly
+end
+
+---comment
+---@param dice table A table representing dice
+---@param modifier number A number to add or subtract from the rolled total
+---@param isMaxRoll boolean Weather the maximum roll should automatically occur
+---@return number result The result of the roll and modifiers
+local function rollDice(dice, modifier, isMaxRoll)
+    if (dice and type(dice) == "table") then
+        return StringManager.evalDice(dice, modifier, isMaxRoll);
+    else
+        return modifier;
+    end
+end
+
 local function parseWeaponEffect(effectNode)
     local rEffect = {};
-	-- rEffect.nDuration = DB.getValue(effect, "duration", 0);
-	-- rEffect.sUnits = DB.getValue(effect, "unit", "");
-	-- rEffect.nInit = DB.getValue(effect, "init", 0);
-	-- rEffect.sSource = sourceNode.getPath();
-	-- rEffect.nGMOnly = DB.getValue(effect, "isgmonly", 0);
-	-- rEffect.sLabel = applyLabel;
-	-- rEffect.sName = applyLabel;
-
     local _, recordname = DB.getValue(effectNode.getChild("..."), "shortcut")
-    
-	rEffect.nDuration = 1
-	rEffect.sUnits = "rnd"
+
+	rEffect.nDuration = rollDice(DB.getValue(effectNode, "durdice"), DB.getValue(effectNode, "durmod", 1))
+	rEffect.sUnits = DB.getValue(effectNode, "durunit", "")
 	rEffect.nInit = 0
 	rEffect.sSource = recordname or effectNode.getChild(".....").getPath() or ""
-	rEffect.nGMOnly = 0
+	rEffect.nGMOnly = checkPlayerVisibility(DB.getValue(effectNode, "visibility", ""), 1)
 	rEffect.sLabel = DB.getValue(effectNode, "effect")
 	rEffect.sName = DB.getValue(effectNode, "effect")
     return rEffect
