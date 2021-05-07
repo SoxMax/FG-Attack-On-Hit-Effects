@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 <root version="3.3">
 	<properties>
-		<name>Weapon Effect Application</name>
+		<name>Attack on Hit Effects</name>
 		<version>0.1.0</version>
 		<author>SoxMax</author>
 		<description>Allows attacks to apply effects on hit</description>
@@ -11,7 +11,7 @@
 		</ruleset>
 	</properties>
 	
-	<announcement text="https://github.com/SoxMax/FG-Weapon-Effect-Application \r Weapon Effect Application \r Allows attacks to apply effects on hit" font="emotefont" />
+	<announcement text="https://github.com/SoxMax/FG-Attack-On-Hit-Effects \r Attack on Hit Effects \r Allows attacks to apply effects on hit" font="emotefont" />
 	
 	<base>
 		<!-- Campaign Records -->
