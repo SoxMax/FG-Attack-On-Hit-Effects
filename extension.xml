@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<root version="3.3">
+	<properties>
+		<name>Weapon Effect Application</name>
+		<version>0.1.0</version>
+		<author>SoxMax</author>
+		<description>Allows attacks to apply effects on hit</description>
+		<loadorder>401</loadorder>
+		<ruleset>
+			<name>PFRPG</name>
+		</ruleset>
+	</properties>
+	
+	<announcement text="https://github.com/SoxMax/FG-Weapon-Effect-Application \r Weapon Effect Application \r Allows attacks to apply effects on hit" font="emotefont" />
+	
+	<base>
+		<!-- Campaign Records -->
+		<includefile source="campaign/record_char_actions_weapon_effects.xml" />
+		<!-- Strings -->
+		<includefile source="strings/strings_weapon_effects.xml" />
+		<!-- Scripts -->
+		<script name="WeaponEffects" file="scripts/weapon_effects.lua" />
+	</base>
+</root>

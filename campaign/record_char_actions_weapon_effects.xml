@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<!-- 
+  Please see the LICENSE.md file included with this distribution for 
+  attribution and copyright information.
+-->
+
+<root>
+	<windowclass name="char_weapon_editor_main" merge="join">
+		<sheetdata>
+			<header_column name="header_effects">
+				<insertbefore>header_damage</insertbefore>
+				<static textres="weapon_header_effects" />
+				<center />
+			</header_column>
+			<button_iedit name="list_effect_iedit">
+				<anchored to="header_effects" position="insidetopright" offset="-5,0" />
+				<target>effect_list</target>
+			</button_iedit>
+			<button_iadd name="list_effect_iadd">
+				<anchored to="list_effect_iedit" position="lefthigh" offset="5,0" />
+				<target>effect_list</target>
+			</button_iadd>
+
+			<list_editor name="effect_list">
+				<datasource>.effectlist</datasource>
+				<class>char_weapon_effect_entry</class>
+				<script>
+					function addEntry(bFocus)
+						local w = createWindow();
+
+						if w and bFocus then
+							w.effect.setFocus();
+						end
+						
+						return w;
+					end
+				</script>
+			</list_editor>
+		</sheetdata>
+	</windowclass>
+
+	<windowclass name="char_weapon_effect_entry">
+		<margins control="0,0,0,2" />
+		<sheetdata>
+			<genericcontrol name="rightanchor">
+				<anchored width="0" height="0">
+					<top offset="5" />
+					<right />
+				</anchored>
+				<invisible />
+			</genericcontrol>
+			<button_idelete name="idelete">
+				<anchored to="rightanchor">
+					<top />
+					<right anchor="left" relation="relative" offset="-5" />
+				</anchored>
+			</button_idelete>
+			
+			<label name="label_effect">
+				<anchored position="insidetopleft" />
+				<static textres="weapon_label_effect" />
+			</label>
+			<stringu name="effect">
+				<anchored to="label_effect" position="righthigh" offset="5">
+					<right parent="rightanchor" offset="-20" />
+				</anchored>
+				<multilinespacing>20</multilinespacing>
+			</stringu>
+		</sheetdata>
+	</windowclass>
+
+</root>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<root>
+	<!-- Headers -->
+	<string name="weapon_header_effects">ON HIT EFFECTS</string>
+	<!-- Fields -->
+	<string name="weapon_label_effect">Effect</string>
+</root>
