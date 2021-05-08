@@ -7,7 +7,7 @@
 	<string name="weapon_label_effect">Effect</string>
 
 	
-    <string name="header_effects">Effect Features</string>
+    <string name="header_effects">ON HIT EFFECTS</string>
     <string name="item_label_effectfeature">Effect</string>
     <string name="item_label_effect_visible">Visibility</string>
     <string name="item_label_effect_visible_tooltip">Always SHOW or HIDE the effect. Default mode shows if item is identified or hides if not.</string>
@@ -33,8 +33,6 @@
 
     <string name="power_label_type">Type</string>
     <string name="power_label_type_tooltip">Type of effect. Use CUSTOM to set the string manually.</string>
-
-    <string name="char_abilities_label_advancedeffects">ADVANCED EFFECTS</string>
 
     <string name="header_saves">Save Features</string>
     <string name="item_save_type_tooltip">Modifier of a save score. Base value of a save score.</string>
@@ -76,8 +74,4 @@
     <string name="init_ae">Initiative</string>
     <string name="save">Save</string>
 	<string bane="check">Check</string>
-	
-    <string name="option_label_ADND_AE_EDIT">PC: Adv. Effect Edit</string>
-    <string name="option_label_ADND_AE_enabled">Enabled</string>
-    <string name="option_label_ADND_AE_disabled">Disabled</string>
 </root>
