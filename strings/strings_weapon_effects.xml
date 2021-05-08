@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <root>
-	<!-- Headers -->
-	<string name="weapon_header_effects">ON HIT EFFECTS</string>
-	<!-- Fields -->
-	<string name="weapon_label_effect">Effect</string>
-
-	
     <string name="header_effects">ON HIT EFFECTS</string>
     <string name="item_label_effectfeature">Effect</string>
     <string name="item_label_effect_visible">Visibility</string>
