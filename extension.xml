@@ -7,6 +7,9 @@
 		<description>Allows attacks to apply effects on hit</description>
 		<loadorder>401</loadorder>
 		<ruleset>
+			<name>3.5E</name>
+		</ruleset>
+		<ruleset>
 			<name>PFRPG</name>
 		</ruleset>
 	</properties>
