@@ -11,18 +11,7 @@
         <margins control="0,0,2,2" />
         <script>
             function onInit()
-                local bCanEdit = false
-                if User.isHost() then
-                    bCanEdit = true
-                else
-                    local node = getDatabaseNode()
-                    if OptionsManager.isOption("ADND_AE_EDIT", "enabled")     -- Can PCs edit effects?
-                        and string.match(node.getPath(),"^charsheet") ~= null  -- Is this the PC's item?
-                        and DB.getValue(node, "isidentified", 1) > 0           -- Is the item identified?
-                        then
-                        bCanEdit = true
-                    end
-                end
+                local bCanEdit = true
                 
                 if (bCanEdit) then
                     header_effects.setVisible(true);
