@@ -65,7 +65,7 @@ local function applyWeaponEffectOnDamage(rSource, rTarget, bSecret, sRollType, s
 
     if(startWounds < endWounds or startTempHp > endTempHp) then
         Debug.chat("Damage taken!")
-        if(rSource.sType == "charsheet") then
+        if(rSource and rSource.sType == "charsheet") then
             local attackName = StringManager.trim(sDamage:match("%b[] (.+) %b[]"):gsub("%b[]", ""))
             local sourceNode = DB.findNode(rSource.sCreatureNode)
             Debug.chat("From weapon", attackName)
