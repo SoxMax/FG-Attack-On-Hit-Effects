@@ -51,14 +51,14 @@ local function parseWeaponEffect(effectNode)
 end
 
 local applyDamage
-local function applyWeaponEffectOnDamage(rSource, rTarget, bSecret, sRollType, sDamage, nTotal)
+local function applyWeaponEffectOnDamage(rSource, rTarget, bSecret, sRollType, sDamage, nTotal, ...)
     -- Debug.chat(rSource, rTarget, bSecret, sRollType, sDamage, nTotal)
 
     local targetNode = DB.findNode(rTarget.sCTNode)
     local startWounds = DB.getValue(targetNode, "wounds", 0)
     local startTempHp = DB.getValue(targetNode, "hptemp", 0)
 
-    applyDamage(rSource, rTarget, bSecret, sRollType, sDamage, nTotal)
+    applyDamage(rSource, rTarget, bSecret, sRollType, sDamage, nTotal, ...)
 
     local endWounds = DB.getValue(targetNode, "wounds", 0)
     local endTempHp = DB.getValue(targetNode, "hptemp", 0)
@@ -82,7 +82,6 @@ local function applyWeaponEffectOnDamage(rSource, rTarget, bSecret, sRollType, s
         end
     end
 end
-
 
 function onInit()
     applyDamage = ActionDamage.applyDamage
