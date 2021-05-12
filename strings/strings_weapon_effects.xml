@@ -36,8 +36,8 @@
     <string name="item_label_save_value">Value</string>
     <string name="item_label_save_value_tooltip">Value of the modifier.</string>
     <string name="item_label_savefeature">Feature</string>
-    <string name="item_label_effect_critonly">Critical Only</string>
-    <string name="item_label_effect_critonly_tooltip">Check this so effect is ONLY applied on a critical hit.</string>
+    <string name="item_label_effect_critonly">Critical Only?</string>
+    <string name="item_label_effect_critonly_tooltip">Should effect only trigger on a critical hits?</string>
 	<string name="item_label_effect_labelonly">Label Only</string>
 	<string name="item_label_effect_labelonly_tooltip">Check this so effect does not include item name.</string>
 	
