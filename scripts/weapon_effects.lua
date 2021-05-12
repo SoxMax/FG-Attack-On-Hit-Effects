@@ -1,11 +1,3 @@
-local aEffectVarMap = {
-	["sName"] = { sDBType = "string", sDBField = "label" },
-	["nGMOnly"] = { sDBType = "number", sDBField = "isgmonly" },
-	["sSource"] = { sDBType = "string", sDBField = "source_name", bClearOnUntargetedDrop = true },
-	["sTarget"] = { sDBType = "string", bClearOnUntargetedDrop = true },
-	["nDuration"] = { sDBType = "number", sDBField = "duration", vDBDefault = 1, sDisplay = "[D: %d]" },
-	["nInit"] = { sDBType = "number", sDBField = "init", sSourceChangeSet = "initresult", bClearOnUntargetedDrop = true },
-};
 
 function checkPlayerVisibility(sVisibility, nIdentified)
     local gmOnly = 0
@@ -53,7 +45,7 @@ end
 
 local applyDamage
 local function applyWeaponEffectOnDamage(rSource, rTarget, bSecret, sRollType, sDamage, nTotal, ...)
-    Debug.chat(rSource, rTarget, bSecret, sRollType, sDamage, nTotal)
+    -- Debug.chat(rSource, rTarget, bSecret, sRollType, sDamage, nTotal)
 
     local targetNode = DB.findNode(rTarget.sCTNode)
     local startWounds = DB.getValue(targetNode, "wounds", 0)
