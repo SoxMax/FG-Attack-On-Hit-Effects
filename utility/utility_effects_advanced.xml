@@ -333,7 +333,7 @@
 
             <!-- duration dice -->
             <basicdice name="durdice">
-                <anchored width="50" height="20">
+                <anchored width="60" height="20">
                     <top parent="columnanchor" anchor="bottom" relation="relative" offset="17" />
                     <left offset="5" />
                 </anchored>
@@ -346,11 +346,18 @@
                 <tooltip textres="item_effects_dice_tooltip" />
             </label_fieldtop>
 
+			<label name="label_plus">
+				<anchored to="durdice" position="righthigh" offset="5,0" width="10" />
+				<static>+</static>
+				<center />
+			</label>
+
             <!-- duration modifier -->
-            <advanced_effect_number name="durmod">
-                <anchored to="durdice" position="righthigh" offset="10,0" width="20" height="20" />
+            <basicnumber name="durmod">
+				<anchored to="label_plus" position="righthigh" offset="5,0" width="30" height="20" />
                 <tooltip textres="power_label_duration_mod_tooltip" />
-            </advanced_effect_number>
+				<hideonvalue>0</hideonvalue>
+            </basicnumber>
             <label_fieldtop>
                 <anchored to="durmod" />
                 <static textres="text_MOD" />
