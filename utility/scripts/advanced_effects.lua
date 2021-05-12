@@ -17,7 +17,7 @@ function onInit()
     DB.addHandler(DB.getPath(node, ".durmod"),"onUpdate", update);
     DB.addHandler(DB.getPath(node, ".durunit"),"onUpdate", update);
     DB.addHandler(DB.getPath(node, ".visibility"),"onUpdate", update);
-    DB.addHandler(DB.getPath(node, ".actiononly"),"onUpdate", update);
+    DB.addHandler(DB.getPath(node, ".critonly"),"onUpdate", update);
     update();
 end
 function onClose()
@@ -26,7 +26,7 @@ function onClose()
     DB.removeHandler(DB.getPath(node, ".durmod"),"onUpdate", update);
     DB.removeHandler(DB.getPath(node, ".durunit"),"onUpdate", update);
     DB.removeHandler(DB.getPath(node, ".visibility"),"onUpdate", update);
-    DB.removeHandler(DB.getPath(node, ".actiononly"),"onUpdate", update);
+    DB.removeHandler(DB.getPath(node, ".critonly"),"onUpdate", update);
 end
 
 -- update display string 
@@ -67,10 +67,10 @@ function update()
                 sDuration = sDuration .. "s";
             end
     end
-    local sActionOnly = "[ActionOnly]";
-    local bActionOnly = (DB.getValue(node, "actiononly", 0) ~= 0);
-    if (not bActionOnly) then
-        sActionOnly = "";
+    local sCritOnly = "[CritOnly]";
+    local bCritOnly = (DB.getValue(node, "critonly", 0) ~= 0);
+    if (not bCritOnly) then
+        sCritOnly = "";
     end
     local sEffect = DB.getValue(node,"effect","");
     local sVis = DB.getValue(node,"visibility","");
@@ -80,6 +80,6 @@ function update()
     if (sDuration ~= "") then
         sDuration = " for [" .. sDuration .. "]";
     end
-    local sFinal = "[" .. sEffect .. "]" .. sDuration .. sVis .. sActionOnly;
+    local sFinal = "[" .. sEffect .. "]" .. sDuration .. sVis .. sCritOnly;
     effect_description.setValue(sFinal);
 end

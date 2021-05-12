@@ -47,12 +47,13 @@ local function parseWeaponEffect(effectNode)
 	rEffect.nGMOnly = checkPlayerVisibility(DB.getValue(effectNode, "visibility", ""), 1)
 	rEffect.sLabel = DB.getValue(effectNode, "effect")
 	rEffect.sName = DB.getValue(effectNode, "effect")
+	rEffect.bCritOnly = DB.getValue(effectNode, "critonly")
     return rEffect
 end
 
 local applyDamage
 local function applyWeaponEffectOnDamage(rSource, rTarget, bSecret, sRollType, sDamage, nTotal, ...)
-    -- Debug.chat(rSource, rTarget, bSecret, sRollType, sDamage, nTotal)
+    Debug.chat(rSource, rTarget, bSecret, sRollType, sDamage, nTotal)
 
     local targetNode = DB.findNode(rTarget.sCTNode)
     local startWounds = DB.getValue(targetNode, "wounds", 0)
@@ -64,18 +65,26 @@ local function applyWeaponEffectOnDamage(rSource, rTarget, bSecret, sRollType, s
     local endTempHp = DB.getValue(targetNode, "hptemp", 0)
 
     if(startWounds < endWounds or startTempHp > endTempHp) then
-        Debug.chat("Damage taken!")
+        -- Debug.chat("Damage taken!")
         if(rSource and rSource.sType == "charsheet") then
             local attackName = StringManager.trim(sDamage:match("%b[] (.+) %b[]"):gsub("%b[]", ""))
+            local isCrit = sDamage:find("[CRITICAL]", 0, true)
             local sourceNode = DB.findNode(rSource.sCreatureNode)
-            Debug.chat("From weapon", attackName)
+            -- Debug.chat("From weapon", attackName)
+            -- Debug.chat("Is Crit", isCrit)
             for _, weaponNode in pairs(DB.getChildren(sourceNode, "weaponlist")) do
                 if DB.getValue(weaponNode, "name", "") == attackName then
-                    Debug.chat("weapon found!", weaponNode)
+                    -- Debug.chat("weapon found!", weaponNode)
                     for _, effectNode in pairs(DB.getChildren(weaponNode, "effectlist")) do
                         local newEffect = parseWeaponEffect(effectNode)
-                        Debug.chat(newEffect)
-                        EffectManager.addEffect("", nil, targetNode, newEffect, true)
+                        -- Debug.chat(newEffect)
+                        if newEffect.bCritOnly then
+                            if isCrit then
+                                EffectManager.addEffect("", nil, targetNode, newEffect, true)
+                            end
+                        else
+                            EffectManager.addEffect("", nil, targetNode, newEffect, true)
+                        end
                     end
                 end
             end

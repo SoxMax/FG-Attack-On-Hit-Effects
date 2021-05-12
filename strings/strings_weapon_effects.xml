@@ -4,7 +4,7 @@
     <string name="header_effects">ON HIT EFFECTS</string>
     <string name="item_label_effectfeature">Effect</string>
     <string name="item_label_effect_visible">Visibility</string>
-    <string name="item_label_effect_visible_tooltip">Always SHOW or HIDE the effect. Default mode shows if item is identified or hides if not.</string>
+    <string name="item_label_effect_visible_tooltip">Always SHOW or HIDE the effect.</string>
     <string name="item_label_effects_hide">Hide</string>
     <string name="item_label_effects_show">Show</string>
     
@@ -13,7 +13,6 @@
     <string name="item_label_effects_mod_tooltip">Modifier applied to duration or do not use dice and set for static duration.</string>
     <string name="item_label_effects_unit">Unit</string>
     <string name="item_label_effects_unit_tooltip">Time unit, round, minute, hour or day.</string>
-    <string name="item_label_effects_string_tooltip">Effect string. i.e. "STR: +1;SAVE -1;"</string>
     <string name="item_label_effect_tooltip">Effects that are applied with the item is equipped and the character is in the combat tracker.</string>
     
     <string name="item_label_effectfeature">Effect</string>
@@ -37,8 +36,8 @@
     <string name="item_label_save_value">Value</string>
     <string name="item_label_save_value_tooltip">Value of the modifier.</string>
     <string name="item_label_savefeature">Feature</string>
-    <string name="item_label_effect_attackonly">Action Only</string>
-    <string name="item_label_effect_attackonly_tooltip">Check this so effect ONLY applied during an attack or damage.</string>
+    <string name="item_label_effect_critonly">Critical Only</string>
+    <string name="item_label_effect_critonly_tooltip">Check this so effect is ONLY applied on a critical hit.</string>
 	<string name="item_label_effect_labelonly">Label Only</string>
 	<string name="item_label_effect_labelonly_tooltip">Check this so effect does not include item name.</string>
 	
@@ -67,5 +66,5 @@
     <string name="heal">Heal</string>
     <string name="init_ae">Initiative</string>
     <string name="save">Save</string>
-	<string bane="check">Check</string>
+	<string name="check">Check</string>
 </root>
