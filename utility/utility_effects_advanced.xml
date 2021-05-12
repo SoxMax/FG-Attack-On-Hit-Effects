@@ -115,10 +115,10 @@
     <windowclass name="advanced_effect_editor">
         <frame>charsheethelper</frame>
         <placement>
-            <size width="350" height="280" />
+            <size width="350" height="300" />
         </placement>
         <sizelimits>
-            <minimum width="350" height="250" />
+            <minimum width="350" height="300" />
             <dynamic />
         </sizelimits>
         <nodelete />
