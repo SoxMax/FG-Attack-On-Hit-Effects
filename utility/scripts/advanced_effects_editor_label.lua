@@ -1,6 +1,6 @@
---
---
---
+-- 
+-- Please see the license.html file included with this distribution for 
+-- attribution and copyright information.
 --
 
 function onInit()
@@ -25,7 +25,7 @@ function onClose()
 end
 
 function updateLabelOnlyEffects()
-	if not User.isHost() then
+	if not Session.IsHost then
 		return;
 	end
 	local nodeRecord = getDatabaseNode();

@@ -34,7 +34,7 @@ function onVisibilityChanged()
 end
 
 function updateSaveEffects()
-    if not User.isHost() then
+    if not Session.IsHost then
         return;
     end
     local nodeRecord = getDatabaseNode();
