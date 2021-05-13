@@ -32,7 +32,7 @@ local function parseWeaponEffect(effectNode)
     local rEffect = {};
     local _, recordname = DB.getValue(effectNode.getChild("..."), "shortcut")
 
-	rEffect.nDuration = rollDice(DB.getValue(effectNode, "durdice"), DB.getValue(effectNode, "durmod", 1))
+	rEffect.nDuration = rollDice(DB.getValue(effectNode, "durdice"), DB.getValue(effectNode, "durmod", 0))
 	rEffect.sUnits = DB.getValue(effectNode, "durunit", "")
 	rEffect.nInit = 0
 	rEffect.sSource = recordname or effectNode.getChild(".....").getPath() or ""
