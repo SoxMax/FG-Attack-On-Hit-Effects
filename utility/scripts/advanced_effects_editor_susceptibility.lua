@@ -1,7 +1,3 @@
---
---
---
---
 
 function onInit()
     local node = getDatabaseNode();
