@@ -68,7 +68,7 @@ local function shouldApplyEffect(isCritEffect, isCrit)
 end
 
 local applyDamage
-local function applyWeaponEffectOnDamage(rSource, rTarget, bSecret, sRollType, sDamage, nTotal, ...)
+local function applyDamageWeaponEffect(rSource, rTarget, bSecret, sRollType, sDamage, nTotal, ...)
     -- Debug.chat(rSource, rTarget, bSecret, sRollType, sDamage, nTotal)
 
     local targetNode = DB.findNode(rTarget.sCTNode)
@@ -120,31 +120,31 @@ local function performVsRollTest(draginfo, rActor, sSave, nTargetDC, bSecretRoll
 end
 
 local applySave
-local function applySaveTest(rSource, rOrigin, rAction, sUser)
+local function applySaveWeaponEffect(rSource, rOrigin, rAction, sUser)
     applySave(rSource, rOrigin, rAction, sUser)
     
     -- Debug.chat(rSource, rOrigin, rAction, sUser)
     
-    local attackName = StringManager.trim(rAction.sSaveDesc:match("%[SAVE VS[^]]*%] ([^[]+)"))
+    local saveResult = rAction.sSaveResult
     local effectNodePath = rAction.sSaveDesc:match("%[WEAPON EFFECT:(.+)%]")
-    Debug.chat(attackName, effectNodePath)
-    if effectNodePath then
+    -- Debug.chat(saveResult, effectNodePath)
+    if effectNodePath and (saveResult == "failure" or saveResult == "autofailure") then
         local targetNode = DB.findNode(rSource.sCTNode)
         local weaponEffect = parseWeaponEffect(DB.findNode(effectNodePath))
-        Debug.chat(targetNode, weaponEffect)
+        -- Debug.chat(targetNode, weaponEffect)
         EffectManager.addEffect("", nil, targetNode, weaponEffect, true)
     end
 end
 
 function onInit()
     applyDamage = ActionDamage.applyDamage
-    ActionDamage.applyDamage = applyWeaponEffectOnDamage
+    ActionDamage.applyDamage = applyDamageWeaponEffect
 
     -- performVsRoll = ActionSave.performVsRoll
     -- ActionSave.performVsRoll = performVsRollTest
 
     applySave = ActionSave.applySave
-    ActionSave.applySave = applySaveTest
+    ActionSave.applySave = applySaveWeaponEffect
 
 
 end
