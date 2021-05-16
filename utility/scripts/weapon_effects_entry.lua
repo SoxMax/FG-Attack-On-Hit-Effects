@@ -1,5 +1,5 @@
 --
--- handles advanced effects
+-- handles weapon effects
 --
 --
 

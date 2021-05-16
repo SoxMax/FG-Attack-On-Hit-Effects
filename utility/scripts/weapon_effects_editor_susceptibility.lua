@@ -29,7 +29,7 @@ function updateSusceptibleEffects()
         return;
     end
     local nodeRecord = getDatabaseNode();
---Debug.console("advanced_effects_editor.lua","updateSusceptibleEffects","nodeRecord",nodeRecord);
+--Debug.console("weapon_effects_editor.lua","updateSusceptibleEffects","nodeRecord",nodeRecord);
     local sEffectString = "";
     local sType = DB.getValue(nodeRecord,"susceptiblity_type","");
     local sSuscept = DB.getValue(nodeRecord,"susceptiblity","");
@@ -43,9 +43,9 @@ function updateSusceptibleEffects()
         sSuscept = "acid";
     end
     
---Debug.console("advanced_effects_editor.lua","updateSusceptibleEffects","sType",sType);
---Debug.console("advanced_effects_editor.lua","updateSusceptibleEffects","sSuscept",sSuscept);
---Debug.console("advanced_effects_editor.lua","updateSusceptibleEffects","nModifier",nModifier);
+--Debug.console("weapon_effects_editor.lua","updateSusceptibleEffects","sType",sType);
+--Debug.console("weapon_effects_editor.lua","updateSusceptibleEffects","sSuscept",sSuscept);
+--Debug.console("weapon_effects_editor.lua","updateSusceptibleEffects","nModifier",nModifier);
     if (sSuscept ~= "") then
 		if sType == "resist" then
 			sEffectString = sEffectString .. sType:upper() .. ": " .. nModifier .. " " .. sSuscept .. ";";

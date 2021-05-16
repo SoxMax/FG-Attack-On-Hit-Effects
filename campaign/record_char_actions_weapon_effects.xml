@@ -3,13 +3,13 @@
 <root>
 	<windowclass name="char_weapon_editor_main" merge="join">
 		<sheetdata>
-			<subwindow name="advanced_effects_contents" insertafter="header_damage">
+			<subwindow name="weapon_effects_contents" insertafter="header_damage">
 				<anchored>
 					<top parent="columnanchor" anchor="bottom" relation="relative" offset="0" />
 					<left offset="5" />
                     <right offset="5" />
 				</anchored>
-				<class>advanced_effects_subwindow</class>
+				<class>weapon_effects_subwindow</class>
 				<activate />
 				<fastinit />
                 <invisible />

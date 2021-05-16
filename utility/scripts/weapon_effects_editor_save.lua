@@ -34,7 +34,7 @@ function updateSaveEffects()
         return;
     end
     local nodeRecord = getDatabaseNode();
---Debug.console("advanced_effects_editor.lua","updatesaveEffects","nodeRecord",nodeRecord);
+--Debug.console("weapon_effects_editor.lua","updatesaveEffects","nodeRecord",nodeRecord);
     local sEffectString = "";
     local sType = DB.getValue(nodeRecord,"save_type","");
     local sSave = DB.getValue(nodeRecord,"save","");
@@ -47,9 +47,9 @@ function updateSaveEffects()
         sTypeChar = "B";
     end
     
--- Debug.console("advanced_effects_editor.lua","updatesaveEffects","sType",sType);
--- Debug.console("advanced_effects_editor.lua","updatesaveEffects","sSave",sSave);
--- Debug.console("advanced_effects_editor.lua","updatesaveEffects","nModifier",nModifier);
+-- Debug.console("weapon_effects_editor.lua","updatesaveEffects","sType",sType);
+-- Debug.console("weapon_effects_editor.lua","updatesaveEffects","sSave",sSave);
+-- Debug.console("weapon_effects_editor.lua","updatesaveEffects","nModifier",nModifier);
     if (sSave ~= "") then
         sEffectString = sEffectString .. sTypeChar .. sSave:upper() .. ": " .. nModifier .. ";";
     end

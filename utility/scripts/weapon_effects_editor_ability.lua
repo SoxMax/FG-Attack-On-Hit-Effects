@@ -51,9 +51,9 @@ function updateAbilityEffects()
     if (sAbility == "") then 
         sAbility = "str";
     end
--- Debug.console("advanced_effects_editor.lua","updateAbilityEffects","sType",sType);
--- Debug.console("advanced_effects_editor.lua","updateAbilityEffects","sAbility",sAbility);
--- Debug.console("advanced_effects_editor.lua","updateAbilityEffects","nModifier",nModifier);
+-- Debug.console("weapon_effects_editor.lua","updateAbilityEffects","sType",sType);
+-- Debug.console("weapon_effects_editor.lua","updateAbilityEffects","sAbility",sAbility);
+-- Debug.console("weapon_effects_editor.lua","updateAbilityEffects","nModifier",nModifier);
     
     if (sAbility ~= "") then
 		if (sBonusType ~= "-") then
