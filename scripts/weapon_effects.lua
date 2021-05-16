@@ -40,6 +40,8 @@ local function parseWeaponEffect(effectNode)
 	rEffect.sLabel = DB.getValue(effectNode, "effect")
 	rEffect.sName = DB.getValue(effectNode, "effect")
 	rEffect.bCritOnly = DB.getValue(effectNode, "critonly", 0)
+	rEffect.sSaveType = DB.getValue(effectNode, "savetype")
+	rEffect.nSaveDc = DB.getValue(effectNode, "savedcmod", 0)
     return rEffect
 end
 
@@ -56,11 +58,11 @@ local function generateSaveDescription(attackName, saveType, saveDc, effectNodeP
 end
 
 local function shouldApplyEffect(isCritEffect, isCrit)
-    Debug.chat(isCritEffect, isCrit)
+    -- Debug.chat(isCritEffect, isCrit)
     if isCritEffect == 0 then
         return true
     else
-        Debug.chat("its a crit effect!")
+        -- Debug.chat("its a crit effect!")
         if isCrit then
             return true
         end
@@ -96,11 +98,12 @@ local function applyDamageWeaponEffect(rSource, rTarget, bSecret, sRollType, sDa
                         local weaponEffect = parseWeaponEffect(effectNode)
                         -- Debug.chat(weaponEffect)
                         if shouldApplyEffect(weaponEffect.bCritOnly, isCrit) then
-                            local saveType = "fortitude"
-                            local saveDc = 13
-                            if saveType and saveDc then
+                            local saveType = weaponEffect.sSaveType
+                            local saveDc = weaponEffect.nSaveDc
+                            -- Debug.chat(saveType, saveDc)
+                            if saveType and saveDc > 0 then
                                 local saveDescription = generateSaveDescription(attackName, saveType, saveDc, effectNode.getNodeName())
-                                ActionSave.performVsRoll(nil, rTarget, saveType, saveDc, weaponEffect.nGMOnly, rSource, false, saveDescription)
+                                ActionSave.performVsRoll(nil, rTarget, saveType, saveDc, weaponEffect.nGMOnly, rSource, false, saveDescription, "")
                             else
                                 EffectManager.addEffect("", nil, targetNode, weaponEffect, true)
                             end
@@ -110,13 +113,6 @@ local function applyDamageWeaponEffect(rSource, rTarget, bSecret, sRollType, sDa
             end
         end
     end
-end
-
-local performVsRoll
-local function performVsRollTest(draginfo, rActor, sSave, nTargetDC, bSecretRoll, rSource, bRemoveOnMiss, sSaveDesc)
-    Debug.chat(draginfo, rActor, sSave, nTargetDC, bSecretRoll, rSource, bRemoveOnMiss, sSaveDesc)
-	
-    performVsRoll(draginfo, rActor, sSave, nTargetDC, bSecretRoll, rSource, bRemoveOnMiss, sSaveDesc)
 end
 
 local applySave
@@ -140,11 +136,6 @@ function onInit()
     applyDamage = ActionDamage.applyDamage
     ActionDamage.applyDamage = applyDamageWeaponEffect
 
-    -- performVsRoll = ActionSave.performVsRoll
-    -- ActionSave.performVsRoll = performVsRollTest
-
     applySave = ActionSave.applySave
     ActionSave.applySave = applySaveWeaponEffect
-
-
 end
