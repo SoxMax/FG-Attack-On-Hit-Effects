@@ -2,7 +2,7 @@
 <root version="3.3">
 	<properties>
 		<name>Attack on Hit Effects</name>
-		<version>0.3.0</version>
+		<version>0.3.1</version>
 		<author>SoxMax</author>
 		<description>Allows attacks to apply effects on hit</description>
 		<loadorder>401</loadorder>
@@ -14,7 +14,7 @@
 		</ruleset>
 	</properties>
 	
-	<announcement text="https://github.com/SoxMax/FG-Attack-On-Hit-Effects \r Attack on Hit Effects v0.3.0 \r Allows attacks to apply effects on hit" font="emotefont" />
+	<announcement text="https://github.com/SoxMax/FG-Attack-On-Hit-Effects \r Attack on Hit Effects v0.3.1 \r Allows attacks to apply effects on hit" font="emotefont" />
 	
 	<base>
 		<includefile source="utility/weapon_effects_window.xml" />

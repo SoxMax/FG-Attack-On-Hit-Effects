@@ -4,29 +4,35 @@
 --
 
 function onInit()
-    local node = getDatabaseNode();
-    local nodeItem = DB.getChild(node, "...");
+    local node = getDatabaseNode()
+    local nodeItem = DB.getChild(node, "...")
     -- set name of effect to name of item so when effect
     -- is applied to someone it shows where it came from properly
-    local sName = DB.getValue(nodeItem,"name","");
-    name.setValue(sName);
+    local sName = DB.getValue(nodeItem,"name","")
+    name.setValue(sName)
 
     -- watch these variables and update display string if they change
-    DB.addHandler(DB.getPath(node, ".effect"),"onUpdate", update);
-    DB.addHandler(DB.getPath(node, ".durdice"),"onUpdate", update);
-    DB.addHandler(DB.getPath(node, ".durmod"),"onUpdate", update);
-    DB.addHandler(DB.getPath(node, ".durunit"),"onUpdate", update);
-    DB.addHandler(DB.getPath(node, ".visibility"),"onUpdate", update);
-    DB.addHandler(DB.getPath(node, ".critonly"),"onUpdate", update);
+    DB.addHandler(DB.getPath(node, ".effect"),"onUpdate", update)
+    DB.addHandler(DB.getPath(node, ".durdice"),"onUpdate", update)
+    DB.addHandler(DB.getPath(node, ".durmod"),"onUpdate", update)
+    DB.addHandler(DB.getPath(node, ".durunit"),"onUpdate", update)
+    DB.addHandler(DB.getPath(node, ".visibility"),"onUpdate", update)
+    DB.addHandler(DB.getPath(node, ".critonly"),"onUpdate", update)
+    DB.addHandler(DB.getPath(node, ".savetype"),"onUpdate", update)
+    DB.addHandler(DB.getPath(node, ".savedcmod"),"onUpdate", update)
     update();
 end
+
 function onClose()
-    DB.removeHandler(DB.getPath(node, ".effect"),"onUpdate", update);
-    DB.removeHandler(DB.getPath(node, ".durdice"),"onUpdate", update);
-    DB.removeHandler(DB.getPath(node, ".durmod"),"onUpdate", update);
-    DB.removeHandler(DB.getPath(node, ".durunit"),"onUpdate", update);
-    DB.removeHandler(DB.getPath(node, ".visibility"),"onUpdate", update);
-    DB.removeHandler(DB.getPath(node, ".critonly"),"onUpdate", update);
+    local node = getDatabaseNode()
+    DB.removeHandler(DB.getPath(node, ".effect"),"onUpdate", update)
+    DB.removeHandler(DB.getPath(node, ".durdice"),"onUpdate", update)
+    DB.removeHandler(DB.getPath(node, ".durmod"),"onUpdate", update)
+    DB.removeHandler(DB.getPath(node, ".durunit"),"onUpdate", update)
+    DB.removeHandler(DB.getPath(node, ".visibility"),"onUpdate", update)
+    DB.removeHandler(DB.getPath(node, ".critonly"),"onUpdate", update)
+    DB.removeHandler(DB.getPath(node, ".savetype"),"onUpdate", update)
+    DB.removeHandler(DB.getPath(node, ".savedcmod"),"onUpdate", update)
 end
 
 -- update display string 
@@ -67,19 +73,27 @@ function update()
                 sDuration = sDuration .. "s";
             end
     end
-    local sCritOnly = "[CritOnly]";
+    local sCritOnly = "[ON CRIT] ";
     local bCritOnly = (DB.getValue(node, "critonly", 0) ~= 0);
     if (not bCritOnly) then
         sCritOnly = "";
     end
-    local sEffect = DB.getValue(node,"effect","");
-    local sVis = DB.getValue(node,"visibility","");
+    local sEffect = "[" .. DB.getValue(node, "effect", "") .. "] "
+    local sVis = DB.getValue(node, "visibility","");
     if (sVis ~= "") then
         sVis = " visibility [" .. sVis .. "]";
     end
     if (sDuration ~= "") then
-        sDuration = " for [" .. sDuration .. "]";
+        sDuration = "[" .. sDuration .. "] ";
     end
-    local sFinal = "[" .. sEffect .. "]" .. sDuration .. sVis .. sCritOnly;
+
+    local sSaveType = WeaponEffects.getSaveTypeString(DB.getValue(node, "savetype", ""))
+    local sSaveDC = DB.getValue(node, "savedcmod", 0)
+    local saveString = ""
+    if(sSaveType ~= "" and sSaveDC > 0) then
+        saveString = "[" .. sSaveType .. " DC " .. sSaveDC .. "] "
+    end
+
+    local sFinal =  sCritOnly .. saveString .. sEffect .. sDuration .. sVis;
     effect_description.setValue(sFinal);
 end

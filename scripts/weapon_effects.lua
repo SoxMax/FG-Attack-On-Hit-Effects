@@ -1,5 +1,16 @@
 
-function checkPlayerVisibility(sVisibility, nIdentified)
+function getSaveTypeString(saveType)
+    if saveType == "fortitude" then
+		return "FORT"
+	elseif saveType == "reflex" then
+		return "REF"
+	elseif saveType == "will" then
+		return "WILL"
+	end
+    return ""
+end
+
+local function checkPlayerVisibility(sVisibility, nIdentified)
     local gmOnly = 0
     if sVisibility == "hide" then
         gmOnly = 1
@@ -47,14 +58,7 @@ local function parseWeaponEffect(effectNode)
 end
 
 local function generateSaveDescription(attackName, saveType, saveDc, effectNodePath)
-    local saveString = ""
-    if saveType == "fortitude" then
-		saveString = "FORT"
-	elseif saveType == "reflex" then
-		saveString = "REF"
-	elseif saveType == "will" then
-		saveString = "WILL"
-	end
+    local saveString = getSaveTypeString(saveType)
     return "[SAVE VS] " .. attackName .. " [" .. saveString .. " DC " .. saveDc .. "] [WEAPON EFFECT:" .. effectNodePath .. "]"
 end
 
