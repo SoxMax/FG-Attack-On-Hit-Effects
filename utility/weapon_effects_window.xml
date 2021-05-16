@@ -94,10 +94,10 @@
     <windowclass name="weapon_effect_editor">
         <frame>charsheethelper</frame>
         <placement>
-            <size width="350" height="300" />
+            <size width="350" height="350" />
         </placement>
         <sizelimits>
-            <minimum width="350" height="300" />
+            <minimum width="350" height="350" />
             <dynamic />
         </sizelimits>
         <nodelete />
@@ -360,10 +360,29 @@
 
             
             <!-- duration header-->
-            <header_column name="header_duration">
-                <static textres="power_header_effect_duration" />
+            <header_column name="header_save">
+                <static textres="power_header_cast_save" />
                 <center />
             </header_column>
+            <button_stringcycler name="savetype">
+				<anchored width="50">
+					<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+					<left offset="5" />
+				</anchored>
+				<parameters>
+					<defaultlabelres>power_label_savetypenone</defaultlabelres>
+					<labelsres>power_label_savetypefort|power_label_savetyperef|power_label_savetypewill</labelsres>
+					<values>fortitude|reflex|will</values>
+				</parameters>
+			</button_stringcycler>
+            <label name="savedclabel">
+				<anchored to="savetype" position="righthigh" offset="10,0" width="15" />
+				<static textres="dc" />
+			</label>
+			<basicnumber name="savedcmod">
+				<anchored to="savedclabel" position="righthigh" offset="10,0" width="30" height="20" />
+				<hideonvalue value="0" />
+			</basicnumber>
 
         </sheetdata>
     </windowclass>
