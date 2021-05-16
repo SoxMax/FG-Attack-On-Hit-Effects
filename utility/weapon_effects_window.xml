@@ -11,10 +11,10 @@
                 <static textres="header_effects" />
                 <center />
             </header_column>
-			<button_iedit name="effects_iedit">
-				<anchored to="header_effects" position="insidetopright" offset="-5,0" />
- 				<target>effects_list</target>
-			</button_iedit>
+            <button_iedit name="effects_iedit">
+                <anchored to="header_effects" position="insidetopright" offset="-5,0" />
+                <target>effects_list</target>
+            </button_iedit>
             <button_iadd name="effects_list_iadd">
                 <anchored to="effects_iedit" position="lefthigh" offset="5,0" />
                 <target>effects_list</target>
@@ -161,8 +161,8 @@
 
             <button_stringcycler name="visibility">
                 <anchored width="60" height="20">
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
-					<left offset="97" />
+                    <top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+                    <left offset="97" />
                 </anchored>
                 <parameters>
                     <defaultlabelres>dash</defaultlabelres>
@@ -180,15 +180,15 @@
 
             <buttonfield name="critonly">
                 <anchored width="60" height="20">
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
-					<left offset="97" />
-				</anchored>
-				<frame name="fielddark" offset="7,5,7,5" hidereadonly = "true" />
-				<stateframe>
-					<hover name="fieldfocus" offset="7,5,7,5" hidereadonly="true" />
-				</stateframe>
-				<state textres="no" />
-				<state textres="yes" />
+                    <top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+                    <left offset="97" />
+                </anchored>
+                <frame name="fielddark" offset="7,5,7,5" hidereadonly = "true" />
+                <stateframe>
+                    <hover name="fieldfocus" offset="7,5,7,5" hidereadonly="true" />
+                </stateframe>
+                <state textres="no" />
+                <state textres="yes" />
             </buttonfield>
 
 
@@ -325,17 +325,17 @@
                 <tooltip textres="item_effects_dice_tooltip" />
             </label_fieldtop>
 
-			<label name="label_plus">
-				<anchored to="durdice" position="righthigh" offset="5,0" width="10" />
-				<static>+</static>
-				<center />
-			</label>
+            <label name="label_plus">
+                <anchored to="durdice" position="righthigh" offset="5,0" width="10" />
+                <static>+</static>
+                <center />
+            </label>
 
             <!-- duration modifier -->
             <basicnumber name="durmod">
-				<anchored to="label_plus" position="righthigh" offset="5,0" width="30" height="20" />
+                <anchored to="label_plus" position="righthigh" offset="5,0" width="30" height="20" />
                 <tooltip textres="power_label_duration_mod_tooltip" />
-				<hideonvalue>0</hideonvalue>
+                <hideonvalue>0</hideonvalue>
             </basicnumber>
             <label_fieldtop>
                 <anchored to="durmod" />
@@ -358,41 +358,41 @@
                 <tooltip textres="item_label_effects_unit_tooltip" />
             </label_fieldtop>
 
-            
+
             <!-- duration header-->
             <header_column name="header_save">
                 <static textres="power_header_cast_save" />
                 <center />
             </header_column>
             <button_stringcycler name="savetype">
-				<anchored width="50">
-					<top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
-					<left offset="5" />
-				</anchored>
-				<parameters>
-					<defaultlabelres>power_label_savetypenone</defaultlabelres>
-					<labelsres>power_label_savetypefort|power_label_savetyperef|power_label_savetypewill</labelsres>
-					<values>fortitude|reflex|will</values>
-				</parameters>
-			</button_stringcycler>
+                <anchored width="50">
+                    <top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
+                    <left offset="5" />
+                </anchored>
+                <parameters>
+                    <defaultlabelres>power_label_savetypenone</defaultlabelres>
+                    <labelsres>power_label_savetypefort|power_label_savetyperef|power_label_savetypewill</labelsres>
+                    <values>fortitude|reflex|will</values>
+                </parameters>
+            </button_stringcycler>
             <label name="savedclabel">
-				<anchored to="savetype" position="righthigh" offset="10,0" width="15" />
-				<static textres="dc" />
-			</label>
-			<basicnumber name="savedcmod">
-				<anchored to="savedclabel" position="righthigh" offset="10,0" width="30" height="20" />
-				<hideonvalue value="0" />
-			</basicnumber>
-            
+                <anchored to="savetype" position="righthigh" offset="10,0" width="15" />
+                <static textres="dc" />
+            </label>
+            <basicnumber name="savedcmod">
+                <anchored to="savedclabel" position="righthigh" offset="10,0" width="30" height="20" />
+                <hideonvalue value="0" />
+            </basicnumber>
+
             <!-- tags header-->
             <header_column name="header_othertags">
-				<static textres="power_label_othertags" />
-				<center />
+                <static textres="power_label_othertags" />
+                <center />
                 <invisible />
-			</header_column>
-			<string_column_full name="othertags" >
+            </header_column>
+            <string_column_full name="othertags">
                 <invisible />
-			</string_column_full>
+            </string_column_full>
 
         </sheetdata>
     </windowclass>
