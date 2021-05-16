@@ -29,7 +29,7 @@
     <!-- weapon effect settings -->
     <windowclass name="weapon_effects_entry">
         <margins control="0,2,0,2" />
-        <script file="utility/scripts/weapon_effects.lua" />
+        <script file="utility/scripts/weapon_effects_entry.lua" />
         <sheetdata>
             <genericcontrol name="rightanchor">
                 <anchored width="0" height="0">
@@ -94,7 +94,7 @@
     <windowclass name="weapon_effect_editor">
         <frame>charsheethelper</frame>
         <placement>
-            <size width="350" height="350" />
+            <size width="350" height="400" />
         </placement>
         <sizelimits>
             <minimum width="350" height="350" />
@@ -383,6 +383,16 @@
 				<anchored to="savedclabel" position="righthigh" offset="10,0" width="30" height="20" />
 				<hideonvalue value="0" />
 			</basicnumber>
+            
+            <!-- tags header-->
+            <header_column name="header_othertags">
+				<static textres="power_label_othertags" />
+				<center />
+                <invisible />
+			</header_column>
+			<string_column_full name="othertags" >
+                <invisible />
+			</string_column_full>
 
         </sheetdata>
     </windowclass>
