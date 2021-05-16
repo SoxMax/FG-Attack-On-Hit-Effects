@@ -1,5 +1,10 @@
 
 function onInit()
+    if Extension.extensions["Full OverlayPackage"] then
+        header_othertags.setVisible(true)
+        othertags.setVisible(true)
+    end
+
     local node = getDatabaseNode();
     --DB.getValue(node,"save_type","modifier");
     -- if npc and no effect yet then we set the 
