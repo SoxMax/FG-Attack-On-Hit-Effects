@@ -359,7 +359,7 @@
             </label_fieldtop>
 
 
-            <!-- duration header-->
+            <!-- save header-->
             <header_column name="header_save">
                 <static textres="power_header_cast_save" />
                 <center />
