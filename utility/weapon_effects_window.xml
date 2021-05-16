@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
 
 <root>
-    <!-- advanced effects subwindow -->
-    <windowclass name="advanced_effects_subwindow">
+    <!-- weapon effects subwindow -->
+    <windowclass name="weapon_effects_subwindow">
         <margins control="0,0,2,2" />
         <sheetdata>
             <anchor_column name="columnanchor" />
@@ -20,16 +20,16 @@
                 <target>effects_list</target>
             </button_iadd>
 
-            <list_editor_advanced_effects name="effects_list">
-            </list_editor_advanced_effects>
-            <!-- end advanced effects entry -->
+            <list_editor_weapon_effects name="effects_list">
+            </list_editor_weapon_effects>
+            <!-- end weapon effects entry -->
         </sheetdata>
     </windowclass>
 
-    <!-- advanced effect settings -->
-    <windowclass name="advanced_effects_entry">
+    <!-- weapon effect settings -->
+    <windowclass name="weapon_effects_entry">
         <margins control="0,2,0,2" />
-        <script file="utility/scripts/advanced_effects.lua" />
+        <script file="utility/scripts/weapon_effects.lua" />
         <sheetdata>
             <genericcontrol name="rightanchor">
                 <anchored width="0" height="0">
@@ -55,7 +55,7 @@
                 <state icon="button_details" pressed="button_details_down" />
                 <script>
 					function onButtonPress()
-                        local w = Interface.openWindow("advanced_effect_editor", window.getDatabaseNode());
+                        local w = Interface.openWindow("weapon_effect_editor", window.getDatabaseNode());
                         w.main.subwindow.name.setValue(DB.getValue(window.getDatabaseNode(), "...name", ""));
 					end
                 </script>
@@ -73,7 +73,7 @@
             <basicstring name="effect_description">
                 <script>
                     function onClickDown(button, x, y)
-                        local w = Interface.openWindow("advanced_effect_editor", window.getDatabaseNode());
+                        local w = Interface.openWindow("weapon_effect_editor", window.getDatabaseNode());
                         w.main.subwindow.name.setValue(DB.getValue(window.getDatabaseNode(), "...name", ""));
                         return true;
                     end
@@ -90,8 +90,8 @@
         </sheetdata>
     </windowclass>
 
-    <!-- advanced effect edit window -->
-    <windowclass name="advanced_effect_editor">
+    <!-- weapon effect edit window -->
+    <windowclass name="weapon_effect_editor">
         <frame>charsheethelper</frame>
         <placement>
             <size width="350" height="300" />
@@ -120,7 +120,7 @@
             </genericcontrol>
 
             <subwindow_record name="main">
-                <class>advanced_effect_editor_main</class>
+                <class>weapon_effect_editor_main</class>
                 <activate />
                 <fastinit />
             </subwindow_record>
@@ -134,8 +134,8 @@
         </sheetdata>
     </windowclass>
 
-    <windowclass name="advanced_effect_editor_main">
-        <script file="utility/scripts/advanced_effects_editor.lua" />
+    <windowclass name="weapon_effect_editor_main">
+        <script file="utility/scripts/weapon_effects_editor.lua" />
         <sheetdata>
             <anchor_column name="columnanchor" />
 
@@ -232,10 +232,10 @@
                 <tooltip textres="item_label_save_type_tooltip" />
             </cycler_saves>
 
-            <advanced_effect_number name="save_modifier">
+            <weapon_effect_number name="save_modifier">
                 <anchored to="save" position="righthigh" offset="10,0" width="20" height="20"/>
                 <tooltip textres="item_label_save_value_tooltip" />
-            </advanced_effect_number>
+            </weapon_effect_number>
 
             <combobox_bonus_types name="save_bonus_type">
                 <anchored to="save_modifier" position="righthigh" offset="10,0" width="100" height="20"/>
@@ -259,9 +259,9 @@
                 <anchored to="ability_type" position="righthigh" offset="10,0" width="80" height="20"/>
             </cycler_ability_long>
 
-            <advanced_effect_number name="ability_modifier">
+            <weapon_effect_number name="ability_modifier">
                 <anchored to="ability" position="righthigh" offset="10,0" width="20" height="20"/>
-            </advanced_effect_number>
+            </weapon_effect_number>
 
             <combobox_bonus_types name="ability_bonus_type">
                 <anchored to="ability_modifier" position="righthigh" offset="10,0" width="100" height="20"/>
@@ -281,9 +281,9 @@
                 <anchored to="susceptiblity_type" position="righthigh" offset="10,0" width="80" height="20"/>
             </combobox_damage_types>
 
-            <advanced_effect_number name="susceptiblity_modifier">
+            <weapon_effect_number name="susceptiblity_modifier">
                 <anchored to="susceptiblity" position="righthigh" offset="10,0" width="20" height="20"/>
-            </advanced_effect_number>
+            </weapon_effect_number>
 
             <!-- misc version -->
             <cycler_misctypes name="misc_type">
@@ -295,10 +295,10 @@
                 <tooltip textres="effect_label_misc_type_tooltip" />
             </cycler_misctypes>
 
-            <advanced_effect_number name="misc_modifier">
+            <weapon_effect_number name="misc_modifier">
                 <anchored to="misc_type" position="righthigh" offset="10,0" width="20" height="20"/>
                 <tooltip textres="effect_label_misc_value_tooltip" />
-            </advanced_effect_number>
+            </weapon_effect_number>
 
             <combobox_bonus_types name="misc_bonus_type">
                 <anchored to="misc_modifier" position="righthigh" offset="10,0" width="100" height="20"/>
@@ -357,6 +357,13 @@
                 <static textres="item_label_effects_unit" />
                 <tooltip textres="item_label_effects_unit_tooltip" />
             </label_fieldtop>
+
+            
+            <!-- duration header-->
+            <header_column name="header_duration">
+                <static textres="power_header_effect_duration" />
+                <center />
+            </header_column>
 
         </sheetdata>
     </windowclass>

@@ -79,8 +79,8 @@ function update()
 
     local bLabel = (sType == "label");
 	
-    local w = Interface.findWindow("advanced_effect_editor", "");
---Debug.console("advanced_effects_editor.lua","update","save",save);
+    local w = Interface.findWindow("weapon_effect_editor", "");
+--Debug.console("weapon_effects_editor.lua","update","save",save);
 
 	save_type.setVisible(bSave);
 	save.setVisible(bSave);
@@ -128,7 +128,7 @@ function updateSaveEffects()
         return;
     end
     local nodeRecord = getDatabaseNode();
---Debug.console("advanced_effects_editor.lua","updatesaveEffects","nodeRecord",nodeRecord);
+--Debug.console("weapon_effects_editor.lua","updatesaveEffects","nodeRecord",nodeRecord);
     local sEffectString = "";
     local sType = DB.getValue(nodeRecord,"save_type","modifier");
     local sSave = DB.getValue(nodeRecord,"save","fortitude");
@@ -145,9 +145,9 @@ function updateSaveEffects()
     if (sSave == "") then
 		sSave = "fortitude";
 	end
--- Debug.console("advanced_effects_editor.lua","updatesaveEffects","sType",sType);
--- Debug.console("advanced_effects_editor.lua","updatesaveEffects","sSave",sSave);
--- Debug.console("advanced_effects_editor.lua","updatesaveEffects","nModifier",nModifier);
+-- Debug.console("weapon_effects_editor.lua","updatesaveEffects","sType",sType);
+-- Debug.console("weapon_effects_editor.lua","updatesaveEffects","sSave",sSave);
+-- Debug.console("weapon_effects_editor.lua","updatesaveEffects","nModifier",nModifier);
 	if sBonusType ~= "" and sBonusType ~= "none" then
 		sEffectString = sEffectString .. sTypeChar .. nModifier .. " " .. sBonusType .. ", " .. sSave:lower() .. ";";
 	else
@@ -209,9 +209,9 @@ function updateAbilityEffects()
         sTypeChar = "BP";
     end
 	
--- Debug.console("advanced_effects_editor.lua","updateAbilityEffects","sType",sType);
--- Debug.console("advanced_effects_editor.lua","updateAbilityEffects","sAbility",sAbility);
--- Debug.console("advanced_effects_editor.lua","updateAbilityEffects","nModifier",nModifier);
+-- Debug.console("weapon_effects_editor.lua","updateAbilityEffects","sType",sType);
+-- Debug.console("weapon_effects_editor.lua","updateAbilityEffects","sAbility",sAbility);
+-- Debug.console("weapon_effects_editor.lua","updateAbilityEffects","nModifier",nModifier);
     
 	if (sAbility ~= "") then
 		if (bIsCheck) then
@@ -243,7 +243,7 @@ function updateSusceptibleEffects()
         return;
     end
     local nodeRecord = getDatabaseNode();
---Debug.console("advanced_effects_editor.lua","updateSusceptibleEffects","nodeRecord",nodeRecord);
+--Debug.console("weapon_effects_editor.lua","updateSusceptibleEffects","nodeRecord",nodeRecord);
     local sEffectString = "";
     local sType = DB.getValue(nodeRecord,"susceptiblity_type","");
     local sSuscept = DB.getValue(nodeRecord,"susceptiblity","");
@@ -258,9 +258,9 @@ function updateSusceptibleEffects()
 		DB.setValue(nodeRecord, "susceptiblity", "string", "acid");
     end
     
---Debug.console("advanced_effects_editor.lua","updateSusceptibleEffects","sType",sType);
---Debug.console("advanced_effects_editor.lua","updateSusceptibleEffects","sSuscept",sSuscept);
---Debug.console("advanced_effects_editor.lua","updateSusceptibleEffects","nModifier",nModifier);
+--Debug.console("weapon_effects_editor.lua","updateSusceptibleEffects","sType",sType);
+--Debug.console("weapon_effects_editor.lua","updateSusceptibleEffects","sSuscept",sSuscept);
+--Debug.console("weapon_effects_editor.lua","updateSusceptibleEffects","nModifier",nModifier);
     if (sSuscept ~= "") then
 		if sType == "resist" then
 			sEffectString = sEffectString .. sType:upper() .. ": " .. nModifier .. " " .. sSuscept .. ";";
@@ -283,7 +283,7 @@ function updateMiscEffects()
         return;
     end
     local nodeRecord = getDatabaseNode();
---Debug.console("advanced_effects_editor.lua","updateMiscEffects","nodeRecord",nodeRecord);
+--Debug.console("weapon_effects_editor.lua","updateMiscEffects","nodeRecord",nodeRecord);
     local sEffectString = "";
     local sType = DB.getValue(nodeRecord,"misc_type","");
     --local sSuscept = DB.getValue(nodeRecord,"susceptiblity","");
@@ -297,9 +297,9 @@ function updateMiscEffects()
         sType = "ac";
     end
     
---Debug.console("advanced_effects_editor.lua","updateMiscEffects","sType",sType);
---Debug.console("advanced_effects_editor.lua","updateMiscEffects","sSuscept",sSuscept);
---Debug.console("advanced_effects_editor.lua","updateMiscEffects","nModifier",nModifier);
+--Debug.console("weapon_effects_editor.lua","updateMiscEffects","sType",sType);
+--Debug.console("weapon_effects_editor.lua","updateMiscEffects","sSuscept",sSuscept);
+--Debug.console("weapon_effects_editor.lua","updateMiscEffects","nModifier",nModifier);
     if (nModifier ~= 0) then
 		if bIsNotHeal and sBonusType ~= "" and sBonusType ~= "none" then
 			sEffectString = sEffectString .. sType:upper() .. ": " .. nModifier .. " " .. sBonusType .. ";";

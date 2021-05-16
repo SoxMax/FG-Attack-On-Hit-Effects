@@ -17,8 +17,8 @@
 	<announcement text="https://github.com/SoxMax/FG-Attack-On-Hit-Effects \r Attack on Hit Effects \r Allows attacks to apply effects on hit" font="emotefont" />
 	
 	<base>
-		<includefile source="utility/template_utility_advanced.xml" />
-		<includefile source="utility/utility_effects_advanced.xml" />
+		<includefile source="utility/weapon_effects_window.xml" />
+		<includefile source="utility/weapon_effects_components.xml" />
 
 		<!-- Campaign Records -->
 		<includefile source="campaign/record_char_actions_weapon_effects.xml" />
