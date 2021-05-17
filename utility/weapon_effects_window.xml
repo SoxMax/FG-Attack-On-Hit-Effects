@@ -325,7 +325,7 @@
                 <tooltip textres="item_effects_dice_tooltip" />
             </label_fieldtop>
 
-            <label name="label_plus">
+            <label name="label_duration_plus">
                 <anchored to="durdice" position="righthigh" offset="5,0" width="10" />
                 <static>+</static>
                 <center />
@@ -333,7 +333,7 @@
 
             <!-- duration modifier -->
             <basicnumber name="durmod">
-                <anchored to="label_plus" position="righthigh" offset="5,0" width="30" height="20" />
+                <anchored to="label_duration_plus" position="righthigh" offset="5,0" width="30" height="20" />
                 <tooltip textres="power_label_duration_mod_tooltip" />
                 <hideonvalue>0</hideonvalue>
             </basicnumber>
@@ -379,8 +379,25 @@
                 <anchored to="savetype" position="righthigh" offset="10,0" width="15" />
                 <static textres="dc" />
             </label>
+            <label name="label_save_ten_plus">
+                <anchored to="savedclabel" position="righthigh" offset="5,0" width="25" />
+                <static>10 +</static>
+            </label>
+            <button_stringcycler name="savedcstat">
+				<anchored to="label_save_ten_plus" position="righthigh" offset="5,0" width="40" />
+				<parameters>
+					<defaultlabelres>dash</defaultlabelres>
+					<labelsres>bab|str|dex|con|int|wis|cha</labelsres>
+					<values>bab|strength|dexterity|constitution|intelligence|wisdom|charisma</values>
+				</parameters>
+			</button_stringcycler>
+            <label name="label_save_plus">
+                <anchored to="savedcstat" position="righthigh" offset="5,0" width="10" />
+                <static>+</static>
+                <center />
+            </label>
             <basicnumber name="savedcmod">
-                <anchored to="savedclabel" position="righthigh" offset="10,0" width="30" height="20" />
+                <anchored to="label_save_plus" position="righthigh" offset="5,0" width="30" height="20" />
                 <hideonvalue value="0" />
             </basicnumber>
 
@@ -396,7 +413,4 @@
 
         </sheetdata>
     </windowclass>
-
-    <!-- new effect edit window work -->
-
 </root>
