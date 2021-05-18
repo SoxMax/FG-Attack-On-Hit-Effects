@@ -7,12 +7,12 @@
         <sheetdata>
             <anchor_column name="columnanchor" />
             <!-- effects -->
-            <header_column name="header_effects">
-                <static textres="header_effects" />
+            <header_column name="header_weapon_effects">
+                <static textres="header_weapon_effects" />
                 <center />
             </header_column>
             <button_iedit name="effects_iedit">
-                <anchored to="header_effects" position="insidetopright" offset="-5,0" />
+                <anchored to="header_weapon_effects" position="insidetopright" offset="-5,0" />
                 <target>effects_list</target>
             </button_iedit>
             <button_iadd name="effects_list_iadd">
@@ -155,8 +155,8 @@
 
             <!-- show/hide effect -->
             <label_column>
-                <static textres="item_label_effect_visible" />
-                <tooltip textres="item_label_effect_visible_tooltip" />
+                <static textres="we_label_effect_visible" />
+                <tooltip textres="we_label_effect_visible_tooltip" />
             </label_column>
 
             <button_stringcycler name="visibility">
@@ -166,16 +166,16 @@
                 </anchored>
                 <parameters>
                     <defaultlabelres>dash</defaultlabelres>
-                    <labelsres>item_label_effects_hide|item_label_effects_show</labelsres>
+                    <labelsres>we_label_effects_hide|we_label_effects_show</labelsres>
                     <values>hide|show</values>
                 </parameters>
-                <tooltip textres="item_label_effect_visible_tooltip" />
+                <tooltip textres="we_label_effect_visible_tooltip" />
             </button_stringcycler>
 
             <!-- critical hit effect cycler here -->
             <label_column name="critonly_label">
-                <static textres="item_label_effect_critonly" />
-                <tooltip textres="item_label_effect_critonly_tooltip" />
+                <static textres="we_label_effect_critonly" />
+                <tooltip textres="we_label_effect_critonly_tooltip" />
             </label_column>
 
             <buttonfield name="critonly">
@@ -224,17 +224,17 @@
                     <left offset="5" />
                     <right offset="-250" />
                 </anchored>
-                <tooltip textres="item_save_type_tooltip" />
+                <tooltip textres="we_save_type_tooltip" />
             </cycler_savetypes>
 
             <cycler_saves name="save">
                 <anchored to="save_type" position="righthigh" offset="10,0" width="70" height="20"/>
-                <tooltip textres="item_label_save_type_tooltip" />
+                <tooltip textres="we_label_save_type_tooltip" />
             </cycler_saves>
 
             <weapon_effect_number name="save_modifier">
                 <anchored to="save" position="righthigh" offset="10,0" width="20" height="20"/>
-                <tooltip textres="item_label_save_value_tooltip" />
+                <tooltip textres="we_label_save_value_tooltip" />
             </weapon_effect_number>
 
             <combobox_bonus_types name="save_bonus_type">
@@ -248,7 +248,7 @@
                     <left offset="5" />
                     <right offset="-230" />
                 </anchored>
-                <tooltip textres="item_ability_type_tooltip" />
+                <tooltip textres="we_ability_type_tooltip" />
             </cycler_abilitytypes>
 
             <cycler_ability_short name="ability">
@@ -274,7 +274,7 @@
                     <left offset="5" />
                     <right offset="-230" />
                 </anchored>
-                <tooltip textres="item_ability_type_tooltip" />
+                <tooltip textres="we_ability_type_tooltip" />
             </cycler_susceptiblitytypes>
 
             <combobox_damage_types name="susceptiblity">
@@ -321,8 +321,8 @@
             </basicdice>
             <label_fieldtop>
                 <anchored to="durdice" />
-                <static textres="item_label_effects_dice" />
-                <tooltip textres="item_effects_dice_tooltip" />
+                <static textres="we_label_effects_dice" />
+                <tooltip textres="we_effects_dice_tooltip" />
             </label_fieldtop>
 
             <label name="label_duration_plus">
@@ -340,7 +340,7 @@
             <label_fieldtop>
                 <anchored to="durmod" />
                 <static textres="text_MOD" />
-                <tooltip textres="item_label_effects_mod_tooltip" />
+                <tooltip textres="we_label_effects_mod_tooltip" />
             </label_fieldtop>
 
             <!-- duration unit -->
@@ -354,8 +354,8 @@
             </button_stringcycler>
             <label_fieldtop>
                 <anchored to="durunit" />
-                <static textres="item_label_effects_unit" />
-                <tooltip textres="item_label_effects_unit_tooltip" />
+                <static textres="we_label_effects_unit" />
+                <tooltip textres="we_label_effects_unit_tooltip" />
             </label_fieldtop>
 
 
