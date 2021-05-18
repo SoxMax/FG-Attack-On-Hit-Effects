@@ -38,10 +38,7 @@ function onInit()
 
 	DB.addHandler(DB.getPath(node, ".label_only"), "onUpdate", updateLabelOnlyEffects);
 
-	DB.addHandler(DB.getPath(node, ".savedcstat"), "onUpdate", updateSaveDc);
-
     update();
-    updateSaveDc()
 end
 
 function onClose()
@@ -67,8 +64,6 @@ function onClose()
 	DB.removeHandler(DB.getPath(node, ".misc_bonus_type"), "onUpdate", updateMiscEffects);
 
 	DB.removeHandler(DB.getPath(node, ".label_only"), "onUpdate", updateLabelOnlyEffects);
-
-	DB.removeHandler(DB.getPath(node, ".savedcstat"), "onUpdate", updateSaveDc);
 end
 
 function update()
@@ -329,13 +324,4 @@ function updateLabelOnlyEffects()
 	local sEffectString = "";
 	local sLabelOnly = DB.getValue(nodeRecord, "label_only", "");
 	DB.setValue(nodeRecord, "effect", "string", sLabelOnly);
-end
-
-function updateSaveDc()
-    local saveDcStat = savedcstat.getStringValue()
-    if(not (saveDcStat == "" or saveDcStat == "bab")) then
-        label_save_ten_plus.setValue("10 +")
-    else
-        label_save_ten_plus.setValue("")
-    end
 end

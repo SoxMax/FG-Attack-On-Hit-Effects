@@ -10,6 +10,25 @@ function getSaveTypeString(saveType)
     return ""
 end
 
+function getStatString(statName)
+    if statName == "bab" then
+		return "BAB"
+	elseif statName == "strength" then
+		return "STR"
+	elseif statName == "dexterity" then
+		return "DEX"
+	elseif statName == "constitution" then
+		return "CON"
+	elseif statName == "intelligence" then
+		return "INT"
+	elseif statName == "wisdom" then
+		return "WIS"
+	elseif statName == "charisma" then
+		return "CHA"
+	end
+    return ""
+end
+
 local function checkPlayerVisibility(sVisibility, nIdentified)
     local gmOnly = 0
     if sVisibility == "hide" then
@@ -52,7 +71,8 @@ local function parseWeaponEffect(effectNode)
 	rEffect.sName = DB.getValue(effectNode, "effect")
 	rEffect.bCritOnly = DB.getValue(effectNode, "critonly", 0)
 	rEffect.sSaveType = DB.getValue(effectNode, "savetype")
-	rEffect.nSaveDc = DB.getValue(effectNode, "savedcmod", 0)
+	rEffect.nSaveDcStat = DB.getValue(effectNode, "savedcstat", "")
+	rEffect.nSaveDcMod = DB.getValue(effectNode, "savedcmod", 0)
     rEffect.sOthertags = DB.getValue(effectNode, "othertags", "")
     return rEffect
 end
@@ -72,6 +92,21 @@ local function shouldApplyEffect(isCritEffect, isCrit)
             return true
         end
     end
+end
+
+local function calculateSaveDc(rSource, dcStat, dcMod)
+    local saveDc = 10 + dcMod
+    if dcStat ~= "" then
+        local abilityBonus = ActorManager35E.getAbilityBonus(rSource, dcStat)
+        -- Debug.chat(abilityBonus)
+        saveDc = saveDc + abilityBonus
+        if dcStat ~= "bab" then
+            local abilityEffectBonus = ActorManager35E.getAbilityEffectsBonus(rSource, dcStat)
+            -- Debug.chat(abilityEffectBonus)
+            saveDc = saveDc + abilityEffectBonus
+        end
+    end
+    return saveDc
 end
 
 local applyDamage
@@ -104,8 +139,8 @@ local function applyDamageWeaponEffect(rSource, rTarget, bSecret, sRollType, sDa
                         -- Debug.chat(weaponEffect)
                         if shouldApplyEffect(weaponEffect.bCritOnly, isCrit) then
                             local saveType = weaponEffect.sSaveType
-                            local saveDc = weaponEffect.nSaveDc
-                            -- Debug.chat(saveType, saveDc)
+                            local saveDc = calculateSaveDc(rSource, weaponEffect.nSaveDcStat, weaponEffect.nSaveDcMod)
+                            Debug.chat(saveType, saveDc)
                             if saveType and saveDc > 0 then
                                 local saveDescription = generateSaveDescription(attackName, saveType, saveDc, effectNode.getNodeName())
                                 ActionSave.performVsRoll(nil, rTarget, saveType, saveDc, weaponEffect.nGMOnly, rSource, false, saveDescription, weaponEffect.sOthertags)

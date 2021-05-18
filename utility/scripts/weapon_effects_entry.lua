@@ -20,6 +20,7 @@ function onInit()
     DB.addHandler(DB.getPath(node, ".critonly"),"onUpdate", update)
     DB.addHandler(DB.getPath(node, ".savetype"),"onUpdate", update)
     DB.addHandler(DB.getPath(node, ".savedcmod"),"onUpdate", update)
+    DB.addHandler(DB.getPath(node, ".savedcstat"),"onUpdate", update)
     update();
 end
 
@@ -33,6 +34,7 @@ function onClose()
     DB.removeHandler(DB.getPath(node, ".critonly"),"onUpdate", update)
     DB.removeHandler(DB.getPath(node, ".savetype"),"onUpdate", update)
     DB.removeHandler(DB.getPath(node, ".savedcmod"),"onUpdate", update)
+    DB.removeHandler(DB.getPath(node, ".savedcstat"),"onUpdate", update)
 end
 
 -- update display string 
@@ -88,10 +90,22 @@ function update()
     end
 
     local sSaveType = WeaponEffects.getSaveTypeString(DB.getValue(node, "savetype", ""))
-    local sSaveDC = DB.getValue(node, "savedcmod", 0)
     local saveString = ""
-    if(sSaveType ~= "" and sSaveDC > 0) then
-        saveString = "[" .. sSaveType .. " DC " .. sSaveDC .. "] "
+    if(sSaveType ~= "") then
+        saveString = "[" .. sSaveType .. " DC "
+        local saveDcStat = DB.getValue(node, "savedcstat", "")
+        if saveDcStat ~= "" then
+            saveString = saveString .. "10+" .. WeaponEffects.getStatString(saveDcStat)
+        end
+        local saveDcMod = DB.getValue(node, "savedcmod", 0)
+        if saveDcMod > 0 then
+            if saveDcStat ~= "" then
+                saveString = saveString .. "+" .. saveDcMod
+            else
+                saveString = saveString .. (10 + saveDcMod)
+            end
+        end
+        saveString = saveString .. "] "
     end
 
     local sFinal =  sCritOnly .. saveString .. sEffect .. sDuration .. sVis;
