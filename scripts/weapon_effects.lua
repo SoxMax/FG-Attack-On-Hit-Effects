@@ -140,7 +140,7 @@ local function applyDamageWeaponEffect(rSource, rTarget, bSecret, sRollType, sDa
                         if shouldApplyEffect(weaponEffect.bCritOnly, isCrit) then
                             local saveType = weaponEffect.sSaveType
                             local saveDc = calculateSaveDc(rSource, weaponEffect.nSaveDcStat, weaponEffect.nSaveDcMod)
-                            Debug.chat(saveType, saveDc)
+                            -- Debug.chat(saveType, saveDc)
                             if saveType and saveDc > 0 then
                                 local saveDescription = generateSaveDescription(attackName, saveType, saveDc, effectNode.getNodeName())
                                 ActionSave.performVsRoll(nil, rTarget, saveType, saveDc, weaponEffect.nGMOnly, rSource, false, saveDescription, weaponEffect.sOthertags)
