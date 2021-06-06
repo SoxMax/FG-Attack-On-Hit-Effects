@@ -173,9 +173,9 @@ local function applySaveWeaponEffect(rSource, rOrigin, rAction, sUser)
 end
 
 function onInit()
-    local set = {}
-    for k, v in pairs(Extension.getExtensions()) do set[v] = k end
-    Extension.extensions = set
+    local extensions = {}
+    for k, v in pairs(Extension.getExtensions()) do extensions[v] = k end
+    Extension.extensions = extensions
 
     applyDamage = ActionDamage.applyDamage
     ActionDamage.applyDamage = applyDamageWeaponEffect

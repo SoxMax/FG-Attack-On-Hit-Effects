@@ -1,6 +1,6 @@
 
 function onInit()
-    if Extension.extensions["Full OverlayPackage"] then
+    if Extension.extensions["Full OverlayPackage"] or Extension.extensions["Full OverlayPackage with alternative icons"] then
         header_othertags.setVisible(true)
         othertags.setVisible(true)
     end
