@@ -36,8 +36,6 @@ function onInit()
     DB.addHandler(DB.getPath(node, ".misc_modifier"), "onUpdate", updateMiscEffects);
 	DB.addHandler(DB.getPath(node, ".misc_bonus_type"), "onUpdate", updateMiscEffects);
 
-	DB.addHandler(DB.getPath(node, ".label_only"), "onUpdate", updateLabelOnlyEffects);
-
     update();
 end
 
@@ -62,8 +60,6 @@ function onClose()
     DB.removeHandler(DB.getPath(node, ".misc_type"), "onUpdate", updateMiscType);
     DB.removeHandler(DB.getPath(node, ".misc_modifier"), "onUpdate", updateMiscEffects);
 	DB.removeHandler(DB.getPath(node, ".misc_bonus_type"), "onUpdate", updateMiscEffects);
-
-	DB.removeHandler(DB.getPath(node, ".label_only"), "onUpdate", updateLabelOnlyEffects);
 end
 
 function update()
@@ -82,8 +78,6 @@ function update()
 	local bIsResist = (DB.getValue(node, "susceptiblity_type", "") == "resist");
 
     local bMisc = (sType == "misc");
-
-    local bLabel = (sType == "label");
 	
     local w = Interface.findWindow("weapon_effect_editor", "");
 --Debug.console("weapon_effects_editor.lua","update","save",save);
@@ -125,8 +119,6 @@ function update()
 	end
 
 	effect.setVisible(bCustom);
-
-	label_only.setVisible(bLabel);
 end
 
 function updateSaveEffects()
@@ -314,14 +306,4 @@ function updateMiscEffects()
 		end
     end
     DB.setValue(nodeRecord,"effect","string",sEffectString);
-end
-
-function updateLabelOnlyEffects()
-	if not Session.IsHost then
-		return;
-	end
-	local nodeRecord = getDatabaseNode();
-	local sEffectString = "";
-	local sLabelOnly = DB.getValue(nodeRecord, "label_only", "");
-	DB.setValue(nodeRecord, "effect", "string", sLabelOnly);
 end

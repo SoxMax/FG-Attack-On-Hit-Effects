@@ -214,9 +214,6 @@
             <!-- effect / label -->
             <string_column_full name="effect" />
 
-            <!-- effect is a label only -->
-            <string_column_full name="label_only" />
-
             <!-- SAVE types -->
             <cycler_savetypes name="save_type">
                 <anchored>
