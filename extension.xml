@@ -2,7 +2,7 @@
 <root version="3.3">
 	<properties>
 		<name>Attack on Hit Effects</name>
-		<version>0.3.2</version>
+		<version>0.3.3</version>
 		<author>SoxMax</author>
 		<description>Allows attacks to apply effects on hit</description>
 		<loadorder>401</loadorder>
