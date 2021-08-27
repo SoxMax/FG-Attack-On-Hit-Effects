@@ -70,7 +70,7 @@ local function parseWeaponEffect(effectNode)
 	rEffect.sLabel = DB.getValue(effectNode, "effect")
 	rEffect.sName = DB.getValue(effectNode, "effect")
 	rEffect.bCritOnly = DB.getValue(effectNode, "critonly", 0)
-	rEffect.sSaveType = DB.getValue(effectNode, "savetype")
+	rEffect.sSaveType = DB.getValue(effectNode, "savetype", "")
 	rEffect.nSaveDcStat = DB.getValue(effectNode, "savedcstat", "")
 	rEffect.nSaveDcMod = DB.getValue(effectNode, "savedcmod", 0)
     rEffect.sOthertags = DB.getValue(effectNode, "othertags", "")
@@ -141,7 +141,7 @@ local function applyDamageWeaponEffect(rSource, rTarget, bSecret, sRollType, sDa
                             local saveType = weaponEffect.sSaveType
                             local saveDc = calculateSaveDc(rSource, weaponEffect.nSaveDcStat, weaponEffect.nSaveDcMod)
                             -- Debug.chat(saveType, saveDc)
-                            if saveType and saveDc > 0 then
+                            if saveType ~= "" and saveDc > 0 then
                                 local saveDescription = generateSaveDescription(attackName, saveType, saveDc, effectNode.getNodeName())
                                 ActionSave.performVsRoll(nil, rTarget, saveType, saveDc, weaponEffect.nGMOnly, rSource, false, saveDescription, weaponEffect.sOthertags)
                             else
