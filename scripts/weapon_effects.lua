@@ -116,13 +116,15 @@ local function applyDamageWeaponEffect(rSource, rTarget, bSecret, sRollType, sDa
     local targetNode = DB.findNode(rTarget.sCTNode)
     local startWounds = DB.getValue(targetNode, "wounds", 0)
     local startTempHp = DB.getValue(targetNode, "hptemp", 0)
+    local startInjury = DB.getValue(targetNode, "injury", 0)
 
     applyDamage(rSource, rTarget, bSecret, sRollType, sDamage, nTotal, ...)
 
     local endWounds = DB.getValue(targetNode, "wounds", 0)
     local endTempHp = DB.getValue(targetNode, "hptemp", 0)
+    local endInjury = DB.getValue(targetNode, "injury", 0)
 
-    if(startWounds < endWounds or startTempHp > endTempHp) then
+    if(startWounds < endWounds or startTempHp > endTempHp or startInjury < endInjury) then
         -- Debug.chat("Damage taken!")
         if(rSource and rSource.sType == "charsheet") then
             -- local decodedDamage = ActionDamage.decodeDamageText(nTotal, sDamage)
