@@ -164,7 +164,10 @@ local function applySaveWeaponEffect(rSource, rOrigin, rAction, sUser)
     -- Debug.chat(rSource, rOrigin, rAction, sUser)
     
     local saveResult = rAction.sSaveResult
-    local effectNodePath = rAction.sSaveDesc:match("%[WEAPON EFFECT:(.+)%]")
+    local effectNodePath
+    if rAction.sSaveDesc then
+        effectNodePath = rAction.sSaveDesc:match("%[WEAPON EFFECT:(.+)%]")
+    end
     -- Debug.chat(saveResult, effectNodePath)
     if effectNodePath and (saveResult == "failure" or saveResult == "autofailure") then
         local targetNode = DB.findNode(rSource.sCTNode)
