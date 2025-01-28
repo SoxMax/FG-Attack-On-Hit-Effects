@@ -197,12 +197,6 @@
                 <center />
             </header_column>
 
-            <!-- effect type cycler here -->
-            <label_column name="type_label">
-                <static textres="power_label_type" />
-                <tooltip textres="power_label_type_tooltip" />
-            </label_column>
-
             <!-- effect / label -->
             <string_column_full name="effect" />
 
