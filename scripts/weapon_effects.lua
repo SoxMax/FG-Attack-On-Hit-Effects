@@ -65,7 +65,8 @@ local function parseWeaponEffect(effectNode)
 	rEffect.nDuration = rollDice(DB.getValue(effectNode, "durdice"), DB.getValue(effectNode, "durmod", 0))
 	rEffect.sUnits = DB.getValue(effectNode, "durunit", "")
 	rEffect.nInit = 0
-	rEffect.sSource = recordname or DB.getChild(effectNode, ".....").getPath() or ""
+	-- rEffect.sSource = recordname or DB.getChild(effectNode, ".....").getPath() or ""
+	rEffect.sSource = DB.getChild(effectNode, ".....").getPath() or ""
 	rEffect.nGMOnly = checkPlayerVisibility(DB.getValue(effectNode, "visibility", ""), 1)
 	rEffect.sLabel = DB.getValue(effectNode, "effect")
 	rEffect.sName = DB.getValue(effectNode, "effect")
