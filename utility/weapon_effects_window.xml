@@ -54,10 +54,9 @@
                 </anchored>
                 <state icon="button_details" pressed="button_details_down" />
                 <script>
-					function onButtonPress()
-                        local w = Interface.openWindow("weapon_effect_editor", window.getDatabaseNode());
-                        w.main.subwindow.name.setValue(DB.getValue(window.getDatabaseNode(), "...name", ""));
-					end
+                    function onButtonPress()
+                        Interface.openWindow('weapon_effect_editor', window.getDatabaseNode());
+                    end
                 </script>
             </buttoncontrol>
 
@@ -73,8 +72,7 @@
             <basicstring name="effect_description">
                 <script>
                     function onClickDown(button, x, y)
-                        local w = Interface.openWindow("weapon_effect_editor", window.getDatabaseNode());
-                        w.main.subwindow.name.setValue(DB.getValue(window.getDatabaseNode(), "...name", ""));
+                        Interface.openWindow("weapon_effect_editor", window.getDatabaseNode());
                         return true;
                     end
                 </script>
