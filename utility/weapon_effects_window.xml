@@ -5,6 +5,7 @@
     <windowclass name="weapon_effects_subwindow">
         <margins control="0,0,2,2" />
         <sheetdata>
+			<anchor_content_top />
             <anchor_column name="columnanchor" />
             <!-- effects -->
             <header_column name="header_weapon_effects">
@@ -20,8 +21,7 @@
                 <target>effects_list</target>
             </button_iadd>
 
-            <list_editor_weapon_effects name="effects_list">
-            </list_editor_weapon_effects>
+            <list_editor_weapon_effects name="effects_list" />
             <!-- end weapon effects entry -->
         </sheetdata>
     </windowclass>
@@ -91,47 +91,19 @@
     </windowclass>
 
     <!-- weapon effect edit window -->
-    <windowclass name="weapon_effect_editor">
-        <frame>charsheethelper</frame>
-        <placement>
-            <size width="350" height="400" />
-        </placement>
+    <windowclass name="weapon_effect_editor" copy='charsheethelper_base'>
         <sizelimits>
             <minimum width="350" height="350" />
             <dynamic />
         </sizelimits>
-        <nodelete />
-        <playercontrol />
-        <minimize>minimized_char</minimize>
-        <tooltip control="name" />
         <sheetdata>
-            <windowtitlebar name="title">
-                <resource>power_title_effect</resource>
-            </windowtitlebar>
-            <anchor_title_charsheethelper name="contentanchor" />
-
-            <genericcontrol name="contentframe">
-                <anchored to="contentanchor">
-                    <top anchor="bottom" offset="0" />
-                    <left />
-                    <right />
-                    <bottom parent="" offset="-30" />
-                </anchored>
-            </genericcontrol>
-
-            <subwindow_record name="main">
-                <class>weapon_effect_editor_main</class>
-                <activate />
-                <fastinit />
-            </subwindow_record>
-
-            <scrollbar_record>
-                <target>main</target>
-            </scrollbar_record>
-
-            <resize_charsheethelper />
-            <close_charsheethelper />
-        </sheetdata>
+			<windowtitlebar_charsheethelper name="title">
+				<prefix>power_title_effect</prefix>
+			</windowtitlebar_charsheethelper>
+			<sub_content_framed_groupbox name="content">
+				<class>weapon_effect_editor_main</class>
+			</sub_content_framed_groupbox>
+		</sheetdata>
     </windowclass>
 
     <windowclass name="weapon_effect_editor_main">
@@ -142,16 +114,7 @@
             <label_column name="name_label">
                 <static textres="power_label_name" />
             </label_column>
-            <stringcontrol name="name">
-                <anchored>
-                    <top parent="columnanchor" anchor="bottom" relation="relative" offset="7" />
-                    <left offset="97" />
-                    <right offset="-5" />
-                </anchored>
-                <multilinespacing>20</multilinespacing>
-                <font>sheettext</font>
-                <readonly />
-            </stringcontrol>
+			<stringc_column name="name" />
 
             <!-- show/hide effect -->
             <label_column>
@@ -198,7 +161,9 @@
             </header_column>
 
             <!-- effect / label -->
-            <string_column_full name="effect" />
+            <string_column_full name="effect">
+				<delaykeyupdate />
+            </string_column_full>
 
             <!-- duration header-->
             <header_column name="header_duration">
