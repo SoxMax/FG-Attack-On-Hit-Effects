@@ -135,7 +135,7 @@ local function applyDamageWeaponEffect(rSource, rTarget, bSecret, sRollType, sDa
             -- Debug.chat("From weapon", attackName)
             -- Debug.chat("Is Crit", isCrit)
             for _, weaponNode in pairs(DB.getChildren(sourceNode, "weaponlist")) do
-                if DB.getValue(weaponNode, "name", "") == attackName then
+                if DB.getValue(weaponNode, "name", ""):lower() == attackName:lower() then
                     -- Debug.chat("weapon found!", weaponNode)
                     for _, effectNode in pairs(DB.getChildren(weaponNode, "effectlist")) do
                         local weaponEffect = parseWeaponEffect(effectNode)
