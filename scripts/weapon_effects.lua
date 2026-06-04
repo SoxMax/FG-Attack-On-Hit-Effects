@@ -65,8 +65,9 @@ local function parseWeaponEffect(effectNode)
 	rEffect.nDuration = rollDice(DB.getValue(effectNode, "durdice"), DB.getValue(effectNode, "durmod", 0))
 	rEffect.sUnits = DB.getValue(effectNode, "durunit", "")
 	rEffect.nInit = 0
-	-- rEffect.sSource = recordname or DB.getChild(effectNode, ".....").getPath() or ""
-	rEffect.sSource = DB.getChild(effectNode, ".....").getPath() or ""
+	-- rEffect.sSource is set at application time so it can use the source actor's CT node path.
+	-- This preserves source-sensitive effects under the current CoreRPG/3.5E/PFRPG effect query model.
+	rEffect.sSource = ""
 	rEffect.nGMOnly = checkPlayerVisibility(DB.getValue(effectNode, "visibility", ""), 1)
 	rEffect.sLabel = DB.getValue(effectNode, "effect")
 	rEffect.sName = DB.getValue(effectNode, "effect")
@@ -102,7 +103,7 @@ local function calculateSaveDc(rSource, dcStat, dcMod)
         -- Debug.chat(abilityBonus)
         saveDc = saveDc + abilityBonus
         if dcStat ~= "bab" then
-            local abilityEffectBonus = ActorManager35E.getAbilityEffectsBonus(rSource, dcStat)
+            local abilityEffectBonus = ActorManagerD20.getAbilityEffectsBonus(rSource, dcStat)
             -- Debug.chat(abilityEffectBonus)
             saveDc = saveDc + abilityEffectBonus
         end
@@ -110,71 +111,120 @@ local function calculateSaveDc(rSource, dcStat, dcMod)
     return saveDc
 end
 
-local applyDamage
-local function applyDamageWeaponEffect(rSource, rTarget, bSecret, sRollType, sDamage, nTotal, ...)
-    -- Debug.chat(rSource, rTarget, bSecret, sRollType, sDamage, nTotal)
+local function getDamageTotal(rRoll)
+    local totalDamage = 0
+    local hasResults = false
 
-    local targetNode = DB.findNode(rTarget.sCTNode)
-    local startWounds = DB.getValue(targetNode, "wounds", 0)
-    local startTempHp = DB.getValue(targetNode, "hptemp", 0)
-    local startInjury = DB.getValue(targetNode, "injury", 0)
+    for _, result in pairs(rRoll.tResults or {}) do
+        hasResults = true
+        totalDamage = totalDamage + (result.nTotal or 0)
+    end
 
-    applyDamage(rSource, rTarget, bSecret, sRollType, sDamage, nTotal, ...)
+    if hasResults then
+        return totalDamage
+    end
 
-    local endWounds = DB.getValue(targetNode, "wounds", 0)
-    local endTempHp = DB.getValue(targetNode, "hptemp", 0)
-    local endInjury = DB.getValue(targetNode, "injury", 0)
+    return rRoll.nTotal or 0
+end
 
-    if(startWounds < endWounds or startTempHp > endTempHp or startInjury < endInjury) then
-        -- Debug.chat("Damage taken!")
-        if(rSource and rSource.sType == "charsheet") then
-            -- local decodedDamage = ActionDamage.decodeDamageText(nTotal, sDamage)
-            local attackName = StringManager.trim(sDamage:match("%[DAMAGE[^]]*%] ([^[]+)"))
-            local isCrit = sDamage:find("[CRITICAL]", 0, true)
-            local sourceNode = DB.findNode(rSource.sCreatureNode)
-            -- Debug.chat("From weapon", attackName)
-            -- Debug.chat("Is Crit", isCrit)
-            for _, weaponNode in pairs(DB.getChildren(sourceNode, "weaponlist")) do
-                if DB.getValue(weaponNode, "name", ""):lower() == attackName:lower() then
-                    -- Debug.chat("weapon found!", weaponNode)
-                    for _, effectNode in pairs(DB.getChildren(weaponNode, "effectlist")) do
-                        local weaponEffect = parseWeaponEffect(effectNode)
-                        -- Debug.chat(weaponEffect)
-                        if shouldApplyEffect(weaponEffect.bCritOnly, isCrit) then
-                            local saveType = weaponEffect.sSaveType
-                            local saveDc = calculateSaveDc(rSource, weaponEffect.nSaveDcStat, weaponEffect.nSaveDcMod)
-                            -- Debug.chat(saveType, saveDc)
-                            if saveType ~= "" and saveDc > 0 then
-                                local saveDescription = generateSaveDescription(attackName, saveType, saveDc, effectNode.getNodeName())
-                                ActionSave.performVsRoll(nil, rTarget, saveType, saveDc, weaponEffect.nGMOnly, rSource, false, saveDescription, weaponEffect.sOthertags)
-                            else
-                                EffectManager.addEffect("", nil, targetNode, weaponEffect, true)
-                            end
-                        end
-                    end
-                end
+local function getDamageAttackName(rRoll)
+    if (rRoll.sLabel or "") ~= "" then
+        return StringManager.trim(rRoll.sLabel)
+    end
+
+    local attackName = ActionDamageCore.decodeLabelText(rRoll.sDesc or "")
+    if attackName ~= "" then
+        return attackName
+    end
+
+    return StringManager.trim((rRoll.sDesc or ""):match("%[DAMAGE[^]]*%] ([^[]+)") or "")
+end
+
+local function addWeaponEffect(rSource, targetNode, weaponEffect)
+    if not targetNode or not weaponEffect then
+        return
+    end
+
+    weaponEffect.sSource = ActorManager.getCTNodeName(rSource)
+
+    EffectManager.addEffect("", nil, targetNode, weaponEffect, true)
+end
+
+local function applyWeaponEffectToTarget(rSource, rTarget, targetNode, attackName, isCrit, effectNode)
+    local weaponEffect = parseWeaponEffect(effectNode)
+    -- Debug.chat(weaponEffect)
+    if shouldApplyEffect(weaponEffect.bCritOnly, isCrit) then
+        local saveType = weaponEffect.sSaveType
+        local saveDc = calculateSaveDc(rSource, weaponEffect.nSaveDcStat, weaponEffect.nSaveDcMod)
+        -- Debug.chat(saveType, saveDc)
+        if saveType ~= "" and saveDc > 0 then
+            local saveDescription = generateSaveDescription(attackName, saveType, saveDc, effectNode.getNodeName())
+            ActionSave.performVsRoll(nil, rTarget, saveType, saveDc, weaponEffect.nGMOnly, rSource, false, saveDescription, weaponEffect.sOthertags)
+        else
+            addWeaponEffect(rSource, targetNode, weaponEffect)
+        end
+    end
+end
+
+local function applyDamageWeaponEffect(rSource, rTarget, rRoll)
+    -- Debug.chat(rSource, rTarget, rRoll)
+    if not rSource or not rTarget or not rRoll then
+        return
+    end
+
+    if not ActorManager.isPC(rSource) then
+        return
+    end
+
+    if getDamageTotal(rRoll) <= 0 then
+        return
+    end
+
+    local attackName = getDamageAttackName(rRoll)
+    if attackName == "" then
+        return
+    end
+
+    local sourceNode = ActorManager.getCreatureNode(rSource)
+    local targetNode = ActorManager.getCTNode(rTarget) or ActorManager.getCreatureNode(rTarget)
+    if not sourceNode or not targetNode then
+        return
+    end
+
+    local isCrit = rRoll.bCritical or (rRoll.sDesc or ""):find("[CRITICAL]", 0, true)
+    -- Debug.chat("From weapon", attackName)
+    -- Debug.chat("Is Crit", isCrit)
+    for _, weaponNode in pairs(DB.getChildren(sourceNode, "weaponlist")) do
+        if DB.getValue(weaponNode, "name", ""):lower() == attackName:lower() then
+            -- Debug.chat("weapon found!", weaponNode)
+            for _, effectNode in pairs(DB.getChildren(weaponNode, "effectlist")) do
+                applyWeaponEffectToTarget(rSource, rTarget, targetNode, attackName, isCrit, effectNode)
             end
         end
     end
 end
 
-local applySave
-local function applySaveWeaponEffect(rSource, rOrigin, rAction, sUser)
-    applySave(rSource, rOrigin, rAction, sUser)
-    
-    -- Debug.chat(rSource, rOrigin, rAction, sUser)
-    
-    local saveResult = rAction.sSaveResult
+local function applySaveWeaponEffect(rSource, rOrigin, rRoll)
+    -- Debug.chat(rSource, rOrigin, rRoll)
+    if not rSource or not rRoll then
+        return
+    end
+
+    local saveResult = rRoll.sResult
     local effectNodePath
-    if rAction.sSaveDesc then
-        effectNodePath = rAction.sSaveDesc:match("%[WEAPON EFFECT:(.+)%]")
+    if rRoll.sSaveDesc then
+        effectNodePath = rRoll.sSaveDesc:match("%[WEAPON EFFECT:(.+)%]")
     end
     -- Debug.chat(saveResult, effectNodePath)
-    if effectNodePath and (saveResult == "failure" or saveResult == "autofailure") then
-        local targetNode = DB.findNode(rSource.sCTNode)
-        local weaponEffect = parseWeaponEffect(DB.findNode(effectNodePath))
+    if effectNodePath and (saveResult == "failure" or saveResult == "critfailure" or saveResult == "half_failure") then
+        local targetNode = ActorManager.getCTNode(rSource) or ActorManager.getCreatureNode(rSource)
+        local effectNode = DB.findNode(effectNodePath)
+        if not targetNode or not effectNode then
+            return
+        end
+        local weaponEffect = parseWeaponEffect(effectNode)
         -- Debug.chat(targetNode, weaponEffect)
-        EffectManager.addEffect("", nil, targetNode, weaponEffect, true)
+        addWeaponEffect(rOrigin, targetNode, weaponEffect)
     end
 end
 
@@ -183,9 +233,6 @@ function onInit()
     for k, v in pairs(Extension.getExtensions()) do extensions[v] = k end
     Extension.extensions = extensions
 
-    applyDamage = ActionDamage.applyDamage
-    ActionDamage.applyDamage = applyDamageWeaponEffect
-
-    applySave = ActionSave.applySave
-    ActionSave.applySave = applySaveWeaponEffect
+    GameManager.addEventFunction("onDamagePostResolve", applyDamageWeaponEffect)
+    GameManager.addEventFunction("onSavePostResolve", applySaveWeaponEffect)
 end
